@@ -14,12 +14,15 @@
 - As a user, I want to sort the insects by category/common name for ease of reference.
 - As a user, I want to find insects by location.
 - As a user, I want to be able to link to an individual insect.
+
 ###Entity Relationship Diagram
 ![Image of ERD]
 (http://www.gliffy.com/go/publish/image/9626517/L.png)
+
 ###Insect Page Wireframe
 ![Image of Insect Page Wireframe]
 (http://www.gliffy.com/go/publish/image/9626807/L.png)
+
 ###Genus & Higher Page Wireframe
 ![Image of Genus & Higher Page Wireframe]
 (http://www.gliffy.com/go/publish/image/9634617/L.png)
