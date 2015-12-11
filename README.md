@@ -16,4 +16,4 @@ As a user, I want to find insects by location.
 As a user, I want to be able to link to an individual insect.
 ###Entity Relationship Diagram
 ![Image of ERD]
-(http://www.gliffy.com/go/publish/image/9626517/M.png)
+(http://www.gliffy.com/go/publish/image/9626517/L.png)
