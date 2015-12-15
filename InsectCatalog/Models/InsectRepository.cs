@@ -19,5 +19,13 @@ namespace InsectCatalog.Models
         {
             _context = a_context;
         }
+
+        public List<Insect> Search(string searchString)
+        {
+            var query = from insects in _context.Insects select insects;
+            List<Insect> foundInsects = query.Where(insect => insect.Description.Contains(searchString)).ToList();
+            foundInsects.Sort();
+            return foundInsects; 
+        }
     }
 }

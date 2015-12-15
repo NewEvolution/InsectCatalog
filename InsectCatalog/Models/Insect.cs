@@ -15,15 +15,16 @@ namespace InsectCatalog.Models
         public string Family { get; set; }
         [Required]
         [RegularExpression(@"^[A-Z]+[a-z]+")]
+        public string Tribe { get; set; }
+        [Required]
+        [RegularExpression(@"^[A-Z]+[a-z]+")]
         public string Genus { get; set; }
         [Required]
         [RegularExpression(@"^[a-z]+")]
         public string Species { get; set; }
         [RegularExpression(@"^[a-z]+")]
         public string Subspecies { get; set; }
-        [Required]
-        [RegularExpression(@"^[A-Z]+[a-z]+")]
-        public string Tribe { get; set; }
+        public string CommonName { get; set; }
         [Required]
         [RegularExpression(@"^[A-Z]+[a-z]+")]
         public string County { get; set; }
@@ -39,6 +40,7 @@ namespace InsectCatalog.Models
         public Host HostPlant { get; set; }
         [Required]
         public Location CollectionLocation { get; set; }
+        public string Description { get; set; }
 
         public int CompareTo(object obj)
         {

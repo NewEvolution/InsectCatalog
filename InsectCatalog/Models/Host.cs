@@ -8,6 +8,7 @@ namespace InsectCatalog.Models
 {
     public class Host : IComparable
     {
+        public string CommonName { get; set; }
         [Key]
         public string HostId { get; set; }
         [Required]

@@ -20,6 +20,7 @@ namespace InsectCatalog.Tests.Models
             Host host = new Host
             {
                 Name = "Cercis canadensis",
+                CommonName = "Redbud",
                 URL = "https://en.wikipedia.org/wiki/Cercis_canadensis"
             };
             Assert.AreEqual("Cercis canadensis", host.Name);

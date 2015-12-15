@@ -120,8 +120,72 @@ namespace InsectCatalog.Tests.Models
         }
 
         [TestMethod]
-        public void Repo()
+        public void InsectContextEnsureInstanceCreation()
         {
+            InsectContext context = mock_context.Object;
+            Assert.IsNotNull(context);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryEnsureInstanceCreation()
+        {
+            Assert.IsNotNull(repo);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryEnsureContext()
+        {
+            var actual = repo.Context;
+            Assert.IsInstanceOfType(actual, typeof(InsectContext));
+        }
+
+        [TestMethod]
+        public void InsectRepositoryFullTextSearch()
+        {
+            DateTime today = DateTime.Now;
+            var allInsects = new List<Insect>();
+            Insect insect1 = new Insect
+            {
+                Family = "Cerambycidae",
+                Tribe = "Aseminae",
+                Genus = "Atimia",
+                Species = "confusa",
+                Subspecies = "confusa",
+                County = "Warren",
+                Description = "Here is some text for the full search",
+                CollectionDate = today.AddYears(-3)
+            };
+            Insect insect2 = new Insect
+            {
+                Family = "Cerambycidae",
+                Tribe = "Aseminae",
+                Genus = "Atimia",
+                Species = "confusa",
+                Subspecies = "confusa",
+                County = "Warren",
+                Description = "Optional text for information",
+                CollectionDate = today.AddDays(-20)
+            };
+            Insect insect3 = new Insect
+            {
+                Family = "Cerambycidae",
+                Tribe = "Aseminae",
+                Genus = "Atimia",
+                Species = "confusa",
+                Subspecies = "confusa",
+                County = "Warren",
+                Description = "This item does not contain our search term",
+                CollectionDate = today.AddHours(-14)
+            };
+            allInsects.Add(insect1);
+            allInsects.Add(insect2);
+            allInsects.Add(insect3);
+            mock_insect_set.Object.AddRange(allInsects);
+            ConnectMocksToDataStore(allInsects);
+            List<Insect> expectedInsects = new List<Insect> { insect2, insect1 };
+            string searchString = "text";
+            List<Insect> actualInsects = repo.Search(searchString);
+            CollectionAssert.AreEqual(expectedInsects, actualInsects);
         }
     }
 }

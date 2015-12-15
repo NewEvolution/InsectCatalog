@@ -42,6 +42,7 @@ namespace InsectCatalog.Tests.Models
             Host host = new Host
             {
                 Name = "Cercis canadensis",
+                CommonName = "Redbud",
                 URL = "https://en.wikipedia.org/wiki/Cercis_canadensis"
             };
             Method method = new Method
@@ -68,6 +69,7 @@ namespace InsectCatalog.Tests.Models
                 CollectedBy = CollBy,
                 NameAuthor = author,
                 HostPlant = host,
+                Description = "Some informational text on the specimen and/or species",
                 CollectionMethod = method,
                 CollectionLocation = location
             };
