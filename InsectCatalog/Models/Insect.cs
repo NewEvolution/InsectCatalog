@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InsectCatalog.Models
 {
-    public class Insect
+    public class Insect : IComparable
     {
         [Key]
         public string InsectId { get; set; }
@@ -37,5 +37,31 @@ namespace InsectCatalog.Models
         public Author NameAuthor { get; set; }
         public Method CollectionMethod { get; set; }
         public Host HostPlant { get; set; }
+        [Required]
+        public Location CollectionLocation { get; set; }
+
+        public int CompareTo(object obj)
+        {
+            int compValue;
+            Insect compInsect = obj as Insect;
+            compValue = Family.CompareTo(compInsect.Family);
+            if (compValue == 0)
+            {
+                compValue = Tribe.CompareTo(compInsect.Tribe);
+                if (compValue == 0)
+                {
+                    compValue = Genus.CompareTo(compInsect.Genus);
+                    if (compValue == 0)
+                    {
+                        compValue = Species.CompareTo(compInsect.Species);
+                        if (compValue == 0)
+                        {
+                            compValue = -1 * (CollectionDate.CompareTo(compInsect.CollectionDate));
+                        }
+                    }
+                }
+            }
+            return compValue;
+        }
     }
 }

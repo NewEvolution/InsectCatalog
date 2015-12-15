@@ -19,11 +19,15 @@ namespace InsectCatalog.Tests.Models
         {
             Collector collector = new Collector
             {
-                Name = "Ryan J. Tanay",
+                FirstName = "Ryan",
+                MiddleName = "J.",
+                LastName = "Tanay",
                 URL = "http://portfolio.ryantanay.com",
                 Email = "rtanay@gmail.com"
             };
-            Assert.AreEqual("Ryan J. Tanay", collector.Name);
+            Assert.AreEqual("Ryan", collector.FirstName);
+            Assert.AreEqual("J.", collector.MiddleName);
+            Assert.AreEqual("Tanay", collector.LastName);
             Assert.AreEqual("http://portfolio.ryantanay.com", collector.URL);
             Assert.AreEqual("rtanay@gmail.com", collector.Email);
         }

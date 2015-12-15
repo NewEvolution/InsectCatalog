@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InsectCatalog.Models
 {
-    public class Method
+    public class Method : IComparable
     {
         [Key]
         public string MethodId { get; set; }
@@ -14,5 +14,11 @@ namespace InsectCatalog.Models
         public string Name { get; set; }
         [Url]
         public string URL { get; set; }
+
+        public int CompareTo(object obj)
+        {
+            Method compMethod = obj as Method;
+            return Name.CompareTo(compMethod.Name);
+        }
     }
 }

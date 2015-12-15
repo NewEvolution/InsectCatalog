@@ -20,13 +20,17 @@ namespace InsectCatalog.Tests.Models
             DateTime today = DateTime.Today;
             Identifier IdBy = new Identifier
             {
-                Name = "Ryan J. Tanay",
+                FirstName = "Ryan",
+                MiddleName = "J.",
+                LastName = "Tanay",
                 URL = "http://portfolio.ryantanay.com",
                 Email = "rtanay@gmail.com"
             };
             Collector CollBy = new Collector
             {
-                Name = "Ryan J. Tanay",
+                FirstName = "Ryan",
+                MiddleName = "J.",
+                LastName = "Tanay",
                 URL = "http://portfolio.ryantanay.com",
                 Email = "rtanay@gmail.com"
             };
@@ -45,6 +49,12 @@ namespace InsectCatalog.Tests.Models
                 Name = "Malaise Trap",
                 URL = "http://en.wikipedia.org/wiki/Malaise_Trap"
             };
+            Location location = new Location
+            {
+                Name = "NRC McMinnville",
+                Latitude = 35.707926,
+                Longitude = -85.744456
+            };
             Insect insect = new Insect
             {
                 Family = "Cerambycidae",
@@ -58,7 +68,8 @@ namespace InsectCatalog.Tests.Models
                 CollectedBy = CollBy,
                 NameAuthor = author,
                 HostPlant = host,
-                CollectionMethod = method
+                CollectionMethod = method,
+                CollectionLocation = location
             };
             Assert.AreEqual("Cerambycidae", insect.Family);
             Assert.AreEqual("Aseminae", insect.Tribe);

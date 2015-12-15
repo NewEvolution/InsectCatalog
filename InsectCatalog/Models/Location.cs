@@ -6,19 +6,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InsectCatalog.Models
 {
-    public class Author : IComparable
+    public class Location : IComparable
     {
-        [Key]
-        public string AuthorId { get; set; }
+        [Required]
+        public double Latitude { get; set; }
+        [Required]
+        public double Longitude { get; set; }
         [Required]
         public string Name { get; set; }
-        [Url]
-        public string URL { get; set; }
 
         public int CompareTo(object obj)
         {
-            Author compAuthor = obj as Author;
-            return Name.CompareTo(compAuthor.Name);
+            Location compLocation = obj as Location;
+            return Name.CompareTo(compLocation.Name);
         }
     }
 }

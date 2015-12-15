@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InsectCatalog.Models
 {
-    public class Host
+    public class Host : IComparable
     {
         [Key]
         public string HostId { get; set; }
@@ -14,5 +14,11 @@ namespace InsectCatalog.Models
         public string Name { get; set; }
         [Url]
         public string URL { get; set; }
+
+        public int CompareTo(object obj)
+        {
+            Host compHost = obj as Host;
+            return Name.CompareTo(compHost.Name);
+        }
     }
 }

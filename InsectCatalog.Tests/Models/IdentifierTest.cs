@@ -19,11 +19,15 @@ namespace InsectCatalog.Tests.Models
         {
             Identifier identifier = new Identifier
             {
-                Name = "Ryan J. Tanay",
+                FirstName = "Ryan",
+                MiddleName = "J.",
+                LastName = "Tanay",
                 URL = "http://portfolio.ryantanay.com",
                 Email = "rtanay@gmail.com"
             };
-            Assert.AreEqual("Ryan J. Tanay", identifier.Name);
+            Assert.AreEqual("Ryan", identifier.FirstName);
+            Assert.AreEqual("J.", identifier.MiddleName);
+            Assert.AreEqual("Tanay", identifier.LastName);
             Assert.AreEqual("http://portfolio.ryantanay.com", identifier.URL);
             Assert.AreEqual("rtanay@gmail.com", identifier.Email);
         }
