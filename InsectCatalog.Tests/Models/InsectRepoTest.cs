@@ -318,5 +318,54 @@ namespace InsectCatalog.Tests.Models
             List<Insect> actualInsects = repo.GetInsects();
             CollectionAssert.AreEqual(expectedInsects, actualInsects);
         }
+
+        [TestMethod]
+        public void InsectRepositoryCreateAuthor()
+        {
+            string name = "Linnaeus";
+            string url = "";
+            List<Author> allAuthors = new List<Author>();
+            ConnectMocksToDataStore(allAuthors);
+            mock_author_set.Setup(a => a.Add(It.IsAny<Author>()))
+                .Callback((Author x) => allAuthors.Add(x))
+                .Returns(mock_author_set.Object.Where(a => a.Name == name).Single); //this is probably wrong and bad
+            bool authorCreated = repo.CreateAuthor(name, url);
+            Assert.AreEqual(1, repo.GetAuthors().Count);
+            Assert.IsTrue(authorCreated);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryCreateCollector()
+        {
+            string firstName = "Ryan";
+            string middleName = "J";
+            string lastName = "Tanay";
+            string email = "rtanay@gmail.com";
+            string url = "http://portfolio.ryantanay.com";
+            List<Collector> allCollectors = new List<Collector>();
+            ConnectMocksToDataStore(allCollectors);
+            mock_collector_set.Setup(c => c.Add(It.IsAny<Collector>()))
+                .Callback((Collector x) => allCollectors.Add(x))
+                .Returns(mock_collector_set.Object.Where(c => c.LastName == lastName && c.FirstName == firstName).Single);
+            bool collectorCreated = repo.CreateCollector(firstName, middleName, lastName, email, url);
+            Assert.AreEqual(1, repo.GetCollectors().Count);
+            Assert.IsTrue(collectorCreated);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryCreateHost()
+        {
+            string name = "Celtis occidentalis";
+            string commonName = "Common hackberry";
+            string url = "http://portfolio.ryantanay.com";
+            List<Host> allHosts = new List<Host>();
+            ConnectMocksToDataStore(allHosts);
+            mock_host_set.Setup(c => c.Add(It.IsAny<Host>()))
+                .Callback((Host x) => allHosts.Add(x))
+                .Returns(mock_host_set.Object.Where(c => c.Name == name).Single);
+            bool hostCreated = repo.CreateHost(name, commonName, url);
+            Assert.AreEqual(1, repo.GetHosts().Count);
+            Assert.IsTrue(hostCreated);
+        }
     }
 }

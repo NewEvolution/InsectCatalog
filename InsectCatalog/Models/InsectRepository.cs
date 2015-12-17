@@ -82,5 +82,77 @@ namespace InsectCatalog.Models
             allInsects.Sort();
             return allInsects;
         }
+
+        public bool CreateAuthor(string name, string url)
+        {
+            bool successfullyCreated = true;
+            Author newAuthor = new Author { Name = name, URL = url };
+            try
+            {
+                Author addedAuthor = _context.Authors.Add(newAuthor);
+                _context.SaveChanges();
+                if (addedAuthor == null)
+                {
+                    successfullyCreated = false;
+                }
+            }
+            catch (Exception)
+            {
+                successfullyCreated = false;
+            }
+            return successfullyCreated;
+        }
+
+        public bool CreateCollector(string firstName, string middleName, string lastName, string email, string url)
+        {
+            bool successfullyCreated = true;
+            Collector newCollector = new Collector
+            {
+                FirstName = firstName,
+                MiddleName = middleName,
+                LastName = lastName,
+                Email = email,
+                URL = url
+            };
+            try
+            {
+                Collector addedCollector = _context.Collectors.Add(newCollector);
+                _context.SaveChanges();
+                if (addedCollector == null)
+                {
+                    successfullyCreated = false;
+                }
+            }
+            catch (Exception)
+            {
+                successfullyCreated = false;
+            }
+            return successfullyCreated;
+        }
+
+        public bool CreateHost(string name, string commonName, string url)
+        {
+            bool successfullyCreated = true;
+            Host newHost = new Host
+            {
+                Name = name,
+                CommonName = commonName,
+                URL = url
+            };
+            try
+            {
+                Host addedHost = _context.Hosts.Add(newHost);
+                _context.SaveChanges();
+                if (addedHost == null)
+                {
+                    successfullyCreated = false;
+                }
+            }
+            catch (Exception)
+            {
+                successfullyCreated = false;
+            }
+            return successfullyCreated;
+        }
     }
 }
