@@ -140,10 +140,93 @@ namespace InsectCatalog.Tests.Models
         }
 
         [TestMethod]
-        public void InsectRepositoryFullTextSearch()
+        public void InsectRepositoryGetAllAuthors()
+        {
+            Author author1 = new Author { Name = "Linnaeus" };
+            Author author2 = new Author { Name = "Haldeman" };
+            Author author3 = new Author { Name = "Gyllenhal" };
+            var allAuthors = new List<Author>() { author1, author2, author3 };
+            mock_author_set.Object.AddRange(allAuthors);
+            ConnectMocksToDataStore(allAuthors);
+            List<Author> expectedAuthors = new List<Author>() { author3, author2, author1 };
+            List<Author> actualAuthors = repo.GetAuthors();
+            CollectionAssert.AreEqual(expectedAuthors, actualAuthors);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryGetAllCollectors()
+        {
+            Collector collector1 = new Collector { LastName = "Tanay" };
+            Collector collector2 = new Collector { LastName = "Addesso" };
+            Collector collector3 = new Collector { LastName = "Allen" };
+            var allCollectors = new List<Collector>() { collector1, collector2, collector3 };
+            mock_collector_set.Object.AddRange(allCollectors);
+            ConnectMocksToDataStore(allCollectors);
+            List<Collector> expectedCollectors = new List<Collector>() { collector2, collector3, collector1 };
+            List<Collector> actualCollectors = repo.GetCollectors();
+            CollectionAssert.AreEqual(expectedCollectors, actualCollectors);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryGetAllHosts()
+        {
+            Host host1 = new Host { Name = "Betula nigra" };
+            Host host2 = new Host { Name = "Cercis canadensis" };
+            Host host3 = new Host { Name = "Acer saccharinum" };
+            var allHosts = new List<Host>() { host1, host2, host3 };
+            mock_host_set.Object.AddRange(allHosts);
+            ConnectMocksToDataStore(allHosts);
+            List<Host> expectedHosts = new List<Host>() { host3, host1, host2 };
+            List<Host> actualHosts = repo.GetHosts();
+            CollectionAssert.AreEqual(expectedHosts, actualHosts);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryGetAllIdentifiers()
+        {
+            Identifier identifier1 = new Identifier { LastName = "Tanay" };
+            Identifier identifier2 = new Identifier { LastName = "Addesso" };
+            Identifier identifier3 = new Identifier { LastName = "Allen" };
+            var allIdentifiers = new List<Identifier>() { identifier1, identifier2, identifier3 };
+            mock_identifier_set.Object.AddRange(allIdentifiers);
+            ConnectMocksToDataStore(allIdentifiers);
+            List<Identifier> expectedIdentifiers = new List<Identifier>() { identifier2, identifier3, identifier1 };
+            List<Identifier> actualIdentifiers = repo.GetIdentifiers();
+            CollectionAssert.AreEqual(expectedIdentifiers, actualIdentifiers);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryGetAllLocations()
+        {
+            Location location1 = new Location { Name = "NRC McMinnville" };
+            Location location2 = new Location { Name = "Centertown" };
+            Location location3 = new Location { Name = "Tullahoma" };
+            var allLocations = new List<Location>() { location1, location2, location3 };
+            mock_location_set.Object.AddRange(allLocations);
+            ConnectMocksToDataStore(allLocations);
+            List<Location> expectedLocations = new List<Location>() { location2, location1, location3 };
+            List<Location> actualLocations = repo.GetLocations();
+            CollectionAssert.AreEqual(expectedLocations, actualLocations);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryGetAllMethods()
+        {
+            Method method1 = new Method { Name = "Sticky Trap" };
+            Method method2 = new Method { Name = "Reared" };
+            Method method3 = new Method { Name = "Vane Trap" };
+            var allMethods = new List<Method>() { method1, method2, method3 };
+            mock_method_set.Object.AddRange(allMethods);
+            ConnectMocksToDataStore(allMethods);
+            List<Method> expectedMethods = new List<Method>() { method2, method1, method3 };
+            List<Method> actualMethods = repo.GetMethods();
+            CollectionAssert.AreEqual(expectedMethods, actualMethods);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryInsectSearch()
         {
             DateTime today = DateTime.Now;
-            var allInsects = new List<Insect>();
             Insect insect1 = new Insect
             {
                 Family = "Cerambycidae",
@@ -151,6 +234,7 @@ namespace InsectCatalog.Tests.Models
                 Genus = "Atimia",
                 Species = "confusa",
                 Subspecies = "confusa",
+                CommonName = "",
                 County = "Warren",
                 Description = "Here is some text for the full search",
                 CollectionDate = today.AddYears(-3)
@@ -162,6 +246,7 @@ namespace InsectCatalog.Tests.Models
                 Genus = "Atimia",
                 Species = "confusa",
                 Subspecies = "confusa",
+                CommonName = "",
                 County = "Warren",
                 Description = "Optional text for information",
                 CollectionDate = today.AddDays(-20)
@@ -173,18 +258,64 @@ namespace InsectCatalog.Tests.Models
                 Genus = "Atimia",
                 Species = "confusa",
                 Subspecies = "confusa",
+                CommonName = "",
                 County = "Warren",
                 Description = "This item does not contain our search term",
                 CollectionDate = today.AddHours(-14)
             };
-            allInsects.Add(insect1);
-            allInsects.Add(insect2);
-            allInsects.Add(insect3);
+            var allInsects = new List<Insect>() { insect1, insect2, insect3 };
             mock_insect_set.Object.AddRange(allInsects);
             ConnectMocksToDataStore(allInsects);
             List<Insect> expectedInsects = new List<Insect> { insect2, insect1 };
             string searchString = "text";
             List<Insect> actualInsects = repo.Search(searchString);
+            CollectionAssert.AreEqual(expectedInsects, actualInsects);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryGetAllInsects()
+        {
+            DateTime today = DateTime.Now;
+            Insect insect1 = new Insect
+            {
+                Family = "Cerambycidae",
+                Tribe = "Cerambycinae",
+                Genus = "Curius",
+                Species = "dentatus",
+                CommonName = "",
+                County = "Warren",
+                Description = "Here is some text for information",
+                CollectionDate = today.AddYears(-3)
+            };
+            Insect insect2 = new Insect
+            {
+                Family = "Cerambycidae",
+                Tribe = "Aseminae",
+                Genus = "Atimia",
+                Species = "confusa",
+                Subspecies = "confusa",
+                CommonName = "",
+                County = "Warren",
+                Description = "Optional text for information",
+                CollectionDate = today.AddDays(-20)
+            };
+            Insect insect3 = new Insect
+            {
+                Family = "Cerambycidae",
+                Tribe = "Aseminae",
+                Genus = "Atimia",
+                Species = "confusa",
+                Subspecies = "confusa",
+                CommonName = "",
+                County = "Warren",
+                Description = "Information text",
+                CollectionDate = today.AddHours(-14)
+            };
+            var allInsects = new List<Insect>() { insect1, insect2, insect3 };
+            mock_insect_set.Object.AddRange(allInsects);
+            ConnectMocksToDataStore(allInsects);
+            List<Insect> expectedInsects = new List<Insect> { insect3, insect2, insect1 };
+            List<Insect> actualInsects = repo.GetInsects();
             CollectionAssert.AreEqual(expectedInsects, actualInsects);
         }
     }

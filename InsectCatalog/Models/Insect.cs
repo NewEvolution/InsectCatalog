@@ -40,6 +40,7 @@ namespace InsectCatalog.Models
         public Host HostPlant { get; set; }
         [Required]
         public Location CollectionLocation { get; set; }
+        [Required(AllowEmptyStrings = true)]
         public string Description { get; set; }
 
         public int CompareTo(object obj)
