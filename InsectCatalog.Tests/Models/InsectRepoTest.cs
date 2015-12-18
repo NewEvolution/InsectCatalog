@@ -367,5 +367,39 @@ namespace InsectCatalog.Tests.Models
             Assert.AreEqual(1, repo.GetHosts().Count);
             Assert.IsTrue(hostCreated);
         }
+
+        [TestMethod]
+        public void InsectRepositoryCreateIdentifier()
+        {
+            string firstName = "Ryan";
+            string middleName = "J";
+            string lastName = "Tanay";
+            string email = "rtanay@gmail.com";
+            string url = "http://portfolio.ryantanay.com";
+            List<Identifier> allIdentifiers = new List<Identifier>();
+            ConnectMocksToDataStore(allIdentifiers);
+            mock_identifier_set.Setup(c => c.Add(It.IsAny<Identifier>()))
+                .Callback((Identifier x) => allIdentifiers.Add(x))
+                .Returns(mock_identifier_set.Object.Where(c => c.LastName == lastName && c.FirstName == firstName).Single);
+            bool identifierCreated = repo.CreateIdentifier(firstName, middleName, lastName, email, url);
+            Assert.AreEqual(1, repo.GetIdentifiers().Count);
+            Assert.IsTrue(identifierCreated);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryCreateLocation()
+        {
+            string name = "NRC McMinnville";
+            double latitude = 35.708118;
+            double longitude = -85.744488;
+            List<Location> allLocations = new List<Location>();
+            ConnectMocksToDataStore(allLocations);
+            mock_location_set.Setup(c => c.Add(It.IsAny<Location>()))
+                .Callback((Location x) => allLocations.Add(x))
+                .Returns(mock_location_set.Object.Where(c => c.Name == name).Single);
+            bool locationCreated = repo.CreateLocation(name, latitude, longitude);
+            Assert.AreEqual(1, repo.GetLocations().Count);
+            Assert.IsTrue(locationCreated);
+        }
     }
 }

@@ -154,5 +154,57 @@ namespace InsectCatalog.Models
             }
             return successfullyCreated;
         }
+
+        public bool CreateIdentifier(string firstName, string middleName, string lastName, string email, string url)
+        {
+            bool successfullyCreated = true;
+            Identifier newIdentifier = new Identifier
+            {
+                FirstName = firstName,
+                MiddleName = middleName,
+                LastName = lastName,
+                Email = email,
+                URL = url
+            };
+            try
+            {
+                Identifier addedIdentifier = _context.Identifiers.Add(newIdentifier);
+                _context.SaveChanges();
+                if (addedIdentifier == null)
+                {
+                    successfullyCreated = false;
+                }
+            }
+            catch (Exception)
+            {
+                successfullyCreated = false;
+            }
+            return successfullyCreated;
+        }
+
+        public bool CreateLocation(string name, double latitude, double longitude)
+        {
+            bool successfullyCreated = true;
+            Location newLocation = new Location
+            {
+                Name = name,
+                Latitude = latitude,
+                Longitude = longitude
+            };
+            try
+            {
+                Location addedLocation = _context.Locations.Add(newLocation);
+                _context.SaveChanges();
+                if (addedLocation == null)
+                {
+                    successfullyCreated = false;
+                }
+            }
+            catch (Exception)
+            {
+                successfullyCreated = false;
+            }
+            return successfullyCreated;
+        }
     }
 }
