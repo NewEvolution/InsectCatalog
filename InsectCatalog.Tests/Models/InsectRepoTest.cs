@@ -360,9 +360,9 @@ namespace InsectCatalog.Tests.Models
             string url = "http://portfolio.ryantanay.com";
             List<Host> allHosts = new List<Host>();
             ConnectMocksToDataStore(allHosts);
-            mock_host_set.Setup(c => c.Add(It.IsAny<Host>()))
+            mock_host_set.Setup(h => h.Add(It.IsAny<Host>()))
                 .Callback((Host x) => allHosts.Add(x))
-                .Returns(mock_host_set.Object.Where(c => c.Name == name).Single);
+                .Returns(mock_host_set.Object.Where(h => h.Name == name).Single);
             bool hostCreated = repo.CreateHost(name, commonName, url);
             Assert.AreEqual(1, repo.GetHosts().Count);
             Assert.IsTrue(hostCreated);
@@ -378,9 +378,9 @@ namespace InsectCatalog.Tests.Models
             string url = "http://portfolio.ryantanay.com";
             List<Identifier> allIdentifiers = new List<Identifier>();
             ConnectMocksToDataStore(allIdentifiers);
-            mock_identifier_set.Setup(c => c.Add(It.IsAny<Identifier>()))
+            mock_identifier_set.Setup(i => i.Add(It.IsAny<Identifier>()))
                 .Callback((Identifier x) => allIdentifiers.Add(x))
-                .Returns(mock_identifier_set.Object.Where(c => c.LastName == lastName && c.FirstName == firstName).Single);
+                .Returns(mock_identifier_set.Object.Where(i => i.LastName == lastName && i.FirstName == firstName).Single);
             bool identifierCreated = repo.CreateIdentifier(firstName, middleName, lastName, email, url);
             Assert.AreEqual(1, repo.GetIdentifiers().Count);
             Assert.IsTrue(identifierCreated);
@@ -394,9 +394,9 @@ namespace InsectCatalog.Tests.Models
             double longitude = -85.744488;
             List<Location> allLocations = new List<Location>();
             ConnectMocksToDataStore(allLocations);
-            mock_location_set.Setup(c => c.Add(It.IsAny<Location>()))
+            mock_location_set.Setup(l => l.Add(It.IsAny<Location>()))
                 .Callback((Location x) => allLocations.Add(x))
-                .Returns(mock_location_set.Object.Where(c => c.Name == name).Single);
+                .Returns(mock_location_set.Object.Where(l => l.Name == name).Single);
             bool locationCreated = repo.CreateLocation(name, latitude, longitude);
             Assert.AreEqual(1, repo.GetLocations().Count);
             Assert.IsTrue(locationCreated);
@@ -409,12 +409,36 @@ namespace InsectCatalog.Tests.Models
             string url = "https://en.wikipedia.org/wiki/Insect_trap#Adhesive_traps";
             List<Method> allMethods = new List<Method>();
             ConnectMocksToDataStore(allMethods);
-            mock_method_set.Setup(c => c.Add(It.IsAny<Method>()))
+            mock_method_set.Setup(m => m.Add(It.IsAny<Method>()))
                 .Callback((Method x) => allMethods.Add(x))
-                .Returns(mock_method_set.Object.Where(c => c.Name == name).Single);
+                .Returns(mock_method_set.Object.Where(m => m.Name == name).Single);
             bool methodCreated = repo.CreateMethod(name, url);
             Assert.AreEqual(1, repo.GetMethods().Count);
             Assert.IsTrue(methodCreated);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryCreateMinimalInsect()
+        {
+            string family = "Cerambycidae";
+            string tribe = "Aseminae";
+            string genus = "Atimia";
+            string species = "confusa";
+            string subspecies = "confusa";
+            string commonName = "";
+            string county = "Warren";
+            Location location = new Location();
+            DateTime collectionDate = DateTime.Now;
+            Identifier identifier = new Identifier();
+            string description = "Information text";
+            List<Insect> allInsects = new List<Insect>();
+            ConnectMocksToDataStore(allInsects);
+            mock_insect_set.Setup(i => i.Add(It.IsAny<Insect>()))
+                .Callback((Insect x) => allInsects.Add(x))
+                .Returns(mock_insect_set.Object.Where(i => i.Genus == genus).Single);
+            bool insectCreated = repo.CreateInsect(name, url);
+            Assert.AreEqual(1, repo.GetInsects().Count);
+            Assert.IsTrue(insectCreated);
         }
     }
 }
