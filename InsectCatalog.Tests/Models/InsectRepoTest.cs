@@ -401,5 +401,20 @@ namespace InsectCatalog.Tests.Models
             Assert.AreEqual(1, repo.GetLocations().Count);
             Assert.IsTrue(locationCreated);
         }
+
+        [TestMethod]
+        public void InsectRepositoryCreateMethod()
+        {
+            string name = "NRC McMinnville";
+            string url = "https://en.wikipedia.org/wiki/Insect_trap#Adhesive_traps";
+            List<Method> allMethods = new List<Method>();
+            ConnectMocksToDataStore(allMethods);
+            mock_method_set.Setup(c => c.Add(It.IsAny<Method>()))
+                .Callback((Method x) => allMethods.Add(x))
+                .Returns(mock_method_set.Object.Where(c => c.Name == name).Single);
+            bool methodCreated = repo.CreateMethod(name, url);
+            Assert.AreEqual(1, repo.GetMethods().Count);
+            Assert.IsTrue(methodCreated);
+        }
     }
 }

@@ -181,5 +181,24 @@ namespace InsectCatalog.Models
                 return false;
             }
         }
+
+        public bool CreateMethod(string name, string url)
+        {
+            Method newMethod = new Method
+            {
+                Name = name,
+                URL = url
+            };
+            try
+            {
+                Method addedMethod = _context.Methods.Add(newMethod);
+                _context.SaveChanges();
+                return addedMethod != null;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
