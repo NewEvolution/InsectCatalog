@@ -22,8 +22,10 @@ namespace InsectCatalog.Models
         [Required]
         [RegularExpression(@"^[a-z]+")]
         public string Species { get; set; }
+        [Required(AllowEmptyStrings = true)]
         [RegularExpression(@"^[a-z]+")]
         public string Subspecies { get; set; }
+        [Required(AllowEmptyStrings = true)]
         public string CommonName { get; set; }
         [Required]
         [RegularExpression(@"^[A-Z]+[a-z]+")]
@@ -36,7 +38,9 @@ namespace InsectCatalog.Models
         public Collector CollectedBy { get; set; }
         [Required]
         public Author NameAuthor { get; set; }
+        [Required(AllowEmptyStrings = true)]
         public Method CollectionMethod { get; set; }
+        [Required(AllowEmptyStrings = true)]
         public Host HostPlant { get; set; }
         [Required]
         public Location CollectionLocation { get; set; }

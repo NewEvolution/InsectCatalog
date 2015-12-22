@@ -405,7 +405,7 @@ namespace InsectCatalog.Tests.Models
         [TestMethod]
         public void InsectRepositoryCreateMethod()
         {
-            string name = "NRC McMinnville";
+            string name = "Sticky Trap";
             string url = "https://en.wikipedia.org/wiki/Insect_trap#Adhesive_traps";
             List<Method> allMethods = new List<Method>();
             ConnectMocksToDataStore(allMethods);
@@ -427,16 +427,135 @@ namespace InsectCatalog.Tests.Models
             string subspecies = "confusa";
             string commonName = "";
             string county = "Warren";
+            string description = "Information text";
             Location location = new Location();
             DateTime collectionDate = DateTime.Now;
             Identifier identifier = new Identifier();
-            string description = "Information text";
+            Collector collector = new Collector();
+            Author author = new Author();
+            Method method = new Method();
+            Host host = new Host();
             List<Insect> allInsects = new List<Insect>();
             ConnectMocksToDataStore(allInsects);
             mock_insect_set.Setup(i => i.Add(It.IsAny<Insect>()))
                 .Callback((Insect x) => allInsects.Add(x))
-                .Returns(mock_insect_set.Object.Where(i => i.Genus == genus).Single);
-            bool insectCreated = repo.CreateInsect(name, url);
+                .Returns(mock_insect_set.Object.Where(i => i.Genus == genus && i.Species == species).Single);
+            bool insectCreated = repo.CreateInsect(
+                family,
+                tribe,
+                genus,
+                species,
+                subspecies,
+                commonName,
+                county,
+                description,
+                location,
+                collectionDate,
+                identifier,
+                collector,
+                author,
+                method,
+                host);
+            Assert.AreEqual(1, repo.GetInsects().Count);
+            Assert.IsTrue(insectCreated);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryFullInsectCreateWithSubCreates()
+        {
+            string family = "Cerambycidae";
+            string tribe = "Aseminae";
+            string genus = "Atimia";
+            string species = "confusa";
+            string subspecies = "confusa";
+            string commonName = "";
+            string county = "Warren";
+            string description = "Information text";
+            string authorName = "Linnaeus";
+            string authorUrl = "";
+            DateTime collectionDate = DateTime.Now;
+            List<Author> allAuthors = new List<Author>();
+            ConnectMocksToDataStore(allAuthors);
+            mock_author_set.Setup(a => a.Add(It.IsAny<Author>()))
+                .Callback((Author x) => allAuthors.Add(x))
+                .Returns(mock_author_set.Object.Where(a => a.Name == authorName).Single);
+            bool authorCreated = repo.CreateAuthor(authorName, authorUrl);
+            Author author = repo.GetAuthors().First();
+            Assert.IsTrue(authorCreated);
+            string firstName = "Ryan";
+            string middleName = "J";
+            string lastName = "Tanay";
+            string email = "rtanay@gmail.com";
+            string url = "http://portfolio.ryantanay.com";
+            List<Collector> allCollectors = new List<Collector>();
+            ConnectMocksToDataStore(allCollectors);
+            mock_collector_set.Setup(c => c.Add(It.IsAny<Collector>()))
+                .Callback((Collector x) => allCollectors.Add(x))
+                .Returns(mock_collector_set.Object.Where(c => c.LastName == lastName && c.FirstName == firstName).Single);
+            bool collectorCreated = repo.CreateCollector(firstName, middleName, lastName, email, url);
+            Collector collector = repo.GetCollectors().First();
+            Assert.IsTrue(collectorCreated);
+            List<Identifier> allIdentifiers = new List<Identifier>();
+            ConnectMocksToDataStore(allIdentifiers);
+            mock_identifier_set.Setup(i => i.Add(It.IsAny<Identifier>()))
+                .Callback((Identifier x) => allIdentifiers.Add(x))
+                .Returns(mock_identifier_set.Object.Where(i => i.LastName == lastName && i.FirstName == firstName).Single);
+            bool identifierCreated = repo.CreateIdentifier(firstName, middleName, lastName, email, url);
+            Identifier identifier = repo.GetIdentifiers().First();
+            Assert.IsTrue(identifierCreated);
+            string hostName = "Celtis occidentalis";
+            string hostCommonName = "Common hackberry";
+            string hostUrl = "http://portfolio.ryantanay.com";
+            List<Host> allHosts = new List<Host>();
+            ConnectMocksToDataStore(allHosts);
+            mock_host_set.Setup(h => h.Add(It.IsAny<Host>()))
+                .Callback((Host x) => allHosts.Add(x))
+                .Returns(mock_host_set.Object.Where(h => h.Name == hostName).Single);
+            bool hostCreated = repo.CreateHost(hostName, hostCommonName, hostUrl);
+            Host host = repo.GetHosts().First();
+            Assert.IsTrue(hostCreated);
+            string locationName = "NRC McMinnville";
+            double latitude = 35.708118;
+            double longitude = -85.744488;
+            List<Location> allLocations = new List<Location>();
+            ConnectMocksToDataStore(allLocations);
+            mock_location_set.Setup(l => l.Add(It.IsAny<Location>()))
+                .Callback((Location x) => allLocations.Add(x))
+                .Returns(mock_location_set.Object.Where(l => l.Name == locationName).Single);
+            bool locationCreated = repo.CreateLocation(locationName, latitude, longitude);
+            Location location = repo.GetLocations().First();
+            Assert.IsTrue(locationCreated);
+            string methodName = "Sticky Trap";
+            string methodUrl = "https://en.wikipedia.org/wiki/Insect_trap#Adhesive_traps";
+            List<Method> allMethods = new List<Method>();
+            ConnectMocksToDataStore(allMethods);
+            mock_method_set.Setup(m => m.Add(It.IsAny<Method>()))
+                .Callback((Method x) => allMethods.Add(x))
+                .Returns(mock_method_set.Object.Where(m => m.Name == methodName).Single);
+            bool methodCreated = repo.CreateMethod(methodName, methodUrl);
+            Method method = repo.GetMethods().First();
+            Assert.IsTrue(methodCreated);
+            List<Insect> allInsects = new List<Insect>();
+            ConnectMocksToDataStore(allInsects);
+            mock_insect_set.Setup(i => i.Add(It.IsAny<Insect>()))
+                .Callback((Insect x) => allInsects.Add(x))
+                .Returns(mock_insect_set.Object.Where(i => i.Genus == genus && i.Species == species).Single);
+            bool insectCreated = repo.CreateInsect(
+                family,
+                tribe,
+                genus,
+                species,
+                subspecies,
+                commonName,
+                county,
+                description,
+                location,
+                collectionDate,
+                identifier,
+                collector,
+                author,
+                method,
+                host);
             Assert.AreEqual(1, repo.GetInsects().Count);
             Assert.IsTrue(insectCreated);
         }

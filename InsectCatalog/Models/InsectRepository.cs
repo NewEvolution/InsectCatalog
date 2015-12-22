@@ -200,5 +200,37 @@ namespace InsectCatalog.Models
                 return false;
             }
         }
+
+        public bool CreateInsect(string family, string tribe, string genus, string species, string subspecies, string commonName, string county, string description, Location location, DateTime collectionDate, Identifier identifier, Collector collector, Author author, Method method, Host host)
+        {
+            Insect newInsect = new Insect
+            {
+                Family = family,
+                Tribe = tribe,
+                Genus = genus,
+                Species = species,
+                Subspecies = subspecies,
+                CommonName = commonName,
+                County = county,
+                Description = description,
+                CollectionLocation = location,
+                CollectionDate = collectionDate,
+                IdentifiedBy = identifier,
+                CollectedBy = collector,
+                NameAuthor = author,
+                CollectionMethod = method,
+                HostPlant = host
+            };
+            try
+            {
+                Insect addedInsect = _context.Insects.Add(newInsect);
+                _context.SaveChanges();
+                return addedInsect != null;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
