@@ -201,7 +201,7 @@ namespace InsectCatalog.Models
             }
         }
 
-        public bool CreateInsect(string family, string tribe, string genus, string species, string subspecies, string commonName, string county, string description, Location location, DateTime collectionDate, Identifier identifier, Collector collector, Author author, Method method, Host host)
+        public bool CreateInsect(string family, string tribe, string genus, string species, string subspecies, string commonName, string county, string description, string location, DateTime collectionDate, string identifier, string collector, string author, string method, string host)
         {
             Insect newInsect = new Insect
             {
@@ -213,13 +213,13 @@ namespace InsectCatalog.Models
                 CommonName = commonName,
                 County = county,
                 Description = description,
-                CollectionLocation = location,
+                LocationId = location,
                 CollectionDate = collectionDate,
-                IdentifiedBy = identifier,
-                CollectedBy = collector,
-                NameAuthor = author,
-                CollectionMethod = method,
-                HostPlant = host
+                IdentifierId = identifier,
+                CollectorId = collector,
+                AuthorId = author,
+                MethodId = method,
+                HostId = host
             };
             try
             {

@@ -65,13 +65,13 @@ namespace InsectCatalog.Tests.Models
                 Subspecies = "confusa",
                 County = "Warren",
                 CollectionDate = today,
-                IdentifiedBy = IdBy,
-                CollectedBy = CollBy,
-                NameAuthor = author,
-                HostPlant = host,
+                IdentifierId = IdBy.IdentifierId,
+                CollectorId = CollBy.CollectorId,
+                AuthorId = author.AuthorId,
+                HostId = host.HostId,
                 Description = "Some informational text on the specimen and/or species",
-                CollectionMethod = method,
-                CollectionLocation = location
+                MethodId = method.MethodId,
+                LocationId = location.LocationId
             };
             Assert.AreEqual("Cerambycidae", insect.Family);
             Assert.AreEqual("Aseminae", insect.Tribe);
@@ -80,10 +80,11 @@ namespace InsectCatalog.Tests.Models
             Assert.AreEqual("confusa", insect.Subspecies);
             Assert.AreEqual("Warren", insect.County);
             Assert.AreEqual(today, insect.CollectionDate);
-            Assert.AreEqual(IdBy, insect.IdentifiedBy);
-            Assert.AreEqual(author, insect.NameAuthor);
-            Assert.AreEqual(host, insect.HostPlant);
-            Assert.AreEqual(method, insect.CollectionMethod);
+            Assert.AreEqual(IdBy.IdentifierId, insect.IdentifierId);
+            Assert.AreEqual(author.AuthorId, insect.AuthorId);
+            Assert.AreEqual(host.HostId, insect.HostId);
+            Assert.AreEqual(method.MethodId, insect.MethodId);
+            Assert.AreEqual(location.LocationId, insect.LocationId);
         }
     }
 }

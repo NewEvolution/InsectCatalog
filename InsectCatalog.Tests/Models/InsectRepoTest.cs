@@ -428,13 +428,13 @@ namespace InsectCatalog.Tests.Models
             string commonName = "";
             string county = "Warren";
             string description = "Information text";
-            Location location = new Location();
+            string location = "TestLocationId";
             DateTime collectionDate = DateTime.Now;
-            Identifier identifier = new Identifier();
-            Collector collector = new Collector();
-            Author author = new Author();
-            Method method = new Method();
-            Host host = new Host();
+            string identifier = "TestIdentifierId";
+            string collector = "TestCollectorId";
+            string author = "TestAuthorId";
+            string method = "TestMethodId";
+            string host = "TestHostId";
             List<Insect> allInsects = new List<Insect>();
             ConnectMocksToDataStore(allInsects);
             mock_insect_set.Setup(i => i.Add(It.IsAny<Insect>()))
@@ -549,13 +549,13 @@ namespace InsectCatalog.Tests.Models
                 commonName,
                 county,
                 description,
-                location,
+                location.LocationId,
                 collectionDate,
-                identifier,
-                collector,
-                author,
-                method,
-                host);
+                identifier.IdentifierId,
+                collector.CollectorId,
+                author.AuthorId,
+                method.MethodId,
+                host.HostId);
             Assert.AreEqual(1, repo.GetInsects().Count);
             Assert.IsTrue(insectCreated);
         }
