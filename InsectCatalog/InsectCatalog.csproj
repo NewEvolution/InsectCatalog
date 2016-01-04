@@ -231,6 +231,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Host.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\InsectContext.cs" />
     <Compile Include="Models\InsectRepository.cs" />
     <Compile Include="Models\Location.cs" />

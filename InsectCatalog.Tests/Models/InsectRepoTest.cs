@@ -17,6 +17,7 @@ namespace InsectCatalog.Tests.Models
         private Mock<DbSet<Collector>> mock_collector_set;
         private Mock<DbSet<Host>> mock_host_set;
         private Mock<DbSet<Identifier>> mock_identifier_set;
+        private Mock<DbSet<Image>> mock_image_set;
         private Mock<DbSet<Location>> mock_location_set;
         private Mock<DbSet<Method>> mock_method_set;
         private InsectRepository repo;
@@ -71,6 +72,16 @@ namespace InsectCatalog.Tests.Models
             mock_context.Setup(a => a.Identifiers).Returns(mock_identifier_set.Object);
         }
 
+        private void ConnectMocksToDataStore(IEnumerable<Image> data_store)
+        {
+            var data_source = data_store.AsQueryable();
+            mock_image_set.As<IQueryable<Image>>().Setup(data => data.Provider).Returns(data_source.Provider);
+            mock_image_set.As<IQueryable<Image>>().Setup(data => data.Expression).Returns(data_source.Expression);
+            mock_image_set.As<IQueryable<Image>>().Setup(data => data.ElementType).Returns(data_source.ElementType);
+            mock_image_set.As<IQueryable<Image>>().Setup(data => data.GetEnumerator()).Returns(data_source.GetEnumerator());
+            mock_context.Setup(a => a.Images).Returns(mock_image_set.Object);
+        }
+
         private void ConnectMocksToDataStore(IEnumerable<Location> data_store)
         {
             var data_source = data_store.AsQueryable();
@@ -100,6 +111,7 @@ namespace InsectCatalog.Tests.Models
             mock_collector_set = new Mock<DbSet<Collector>>();
             mock_host_set = new Mock<DbSet<Host>>();
             mock_identifier_set = new Mock<DbSet<Identifier>>();
+            mock_image_set = new Mock<DbSet<Image>>();
             mock_location_set = new Mock<DbSet<Location>>();
             mock_method_set = new Mock<DbSet<Method>>();
             repo = new InsectRepository(mock_context.Object);
@@ -114,6 +126,7 @@ namespace InsectCatalog.Tests.Models
             mock_collector_set = null;
             mock_host_set = null;
             mock_identifier_set = null;
+            mock_image_set = null;
             mock_location_set = null;
             mock_method_set = null;
             repo = null;
@@ -193,6 +206,20 @@ namespace InsectCatalog.Tests.Models
             List<Identifier> expectedIdentifiers = new List<Identifier>() { identifier2, identifier3, identifier1 };
             List<Identifier> actualIdentifiers = repo.GetIdentifiers();
             CollectionAssert.AreEqual(expectedIdentifiers, actualIdentifiers);
+        }
+
+        [TestMethod]
+        public void InsectRepositoryGetAllImages()
+        {
+            Image image1 = new Image { S3Id = "TestImage1S3ID" };
+            Image image2 = new Image { S3Id = "TestImage2S3ID" };
+            Image image3 = new Image { S3Id = "TestImage3S3ID" };
+            var allImages = new List<Image>() { image1, image2, image3 };
+            mock_image_set.Object.AddRange(allImages);
+            ConnectMocksToDataStore(allImages);
+            List<Image> expectedImages = new List<Image>() { image1, image2, image3 };
+            List<Image> actualImages = repo.GetImages();
+            CollectionAssert.AreEqual(expectedImages, actualImages);
         }
 
         [TestMethod]
@@ -367,6 +394,32 @@ namespace InsectCatalog.Tests.Models
         }
 
         [TestMethod]
+        public void ImageRepositoryGetRandomImage()
+        {
+            Image image1 = new Image
+            {
+                S3Id = "Image1TestS3id",
+                Caption = "Image 1 Test Caption"
+            };
+            Image image2 = new Image
+            {
+                S3Id = "Image2TestS3id",
+                Caption = "Image 2 Test Caption"
+            };
+            Image image3 = new Image
+            {
+                S3Id = "Image3TestS3id",
+                Caption = "Image 3 Test Caption"
+            };
+            var allImages = new List<Image>() { image1, image2, image3 };
+            mock_image_set.Object.AddRange(allImages);
+            ConnectMocksToDataStore(allImages);
+            Image expectedImage = image2;
+            Image actualImage = repo.GetRandomImage();
+            Assert.AreEqual(expectedImage, actualImage);
+        }
+
+        [TestMethod]
         public void InsectRepositoryCreateAuthor()
         {
             string name = "Linnaeus";
@@ -434,6 +487,21 @@ namespace InsectCatalog.Tests.Models
         }
 
         [TestMethod]
+        public void InsectRepositoryCreateImage()
+        {
+            string s3id = "TestS3id";
+            string caption = "Test Image Caption";
+            List<Image> allImages = new List<Image>();
+            ConnectMocksToDataStore(allImages);
+            mock_image_set.Setup(i => i.Add(It.IsAny<Image>()))
+                .Callback((Image x) => allImages.Add(x))
+                .Returns(mock_image_set.Object.Where(i => i.S3Id == s3id).Single);
+            bool imageCreated = repo.CreateImage(s3id, caption);
+            Assert.AreEqual(1, repo.GetImages().Count);
+            Assert.IsTrue(imageCreated);
+        }
+
+        [TestMethod]
         public void InsectRepositoryCreateLocation()
         {
             string name = "NRC McMinnville";
@@ -482,6 +550,10 @@ namespace InsectCatalog.Tests.Models
             string author = "TestAuthorId";
             string method = "TestMethodId";
             string host = "TestHostId";
+            string image1id = "TestImage1id";
+            string image2id = "TestImage2id";
+            string image3id = "TestImage3id";
+            List<string> images = new List<string>() { image1id, image2id, image3id };
             List<Insect> allInsects = new List<Insect>();
             ConnectMocksToDataStore(allInsects);
             mock_insect_set.Setup(i => i.Add(It.IsAny<Insect>()))
@@ -502,7 +574,8 @@ namespace InsectCatalog.Tests.Models
                 collector,
                 author,
                 method,
-                host);
+                host,
+                images);
             Assert.AreEqual(1, repo.GetInsects().Count);
             Assert.IsTrue(insectCreated);
         }
@@ -550,6 +623,17 @@ namespace InsectCatalog.Tests.Models
             bool identifierCreated = repo.CreateIdentifier(firstName, middleName, lastName, email, url);
             Identifier identifier = repo.GetIdentifiers().First();
             Assert.IsTrue(identifierCreated);
+            string s3id = "TestS3id";
+            string caption = "Test Image Caption";
+            List<Image> allImages = new List<Image>();
+            ConnectMocksToDataStore(allImages);
+            mock_image_set.Setup(i => i.Add(It.IsAny<Image>()))
+                .Callback((Image x) => allImages.Add(x))
+                .Returns(mock_image_set.Object.Where(i => i.S3Id == s3id).Single);
+            bool imageCreated = repo.CreateImage(s3id, caption);
+            Image image = repo.GetImages().First();
+            List<string> images = new List<string>() { image.ImageId };
+            Assert.IsTrue(imageCreated);
             string hostName = "Celtis occidentalis";
             string hostCommonName = "Common hackberry";
             string hostUrl = "http://portfolio.ryantanay.com";
@@ -602,7 +686,8 @@ namespace InsectCatalog.Tests.Models
                 collector.CollectorId,
                 author.AuthorId,
                 method.MethodId,
-                host.HostId);
+                host.HostId,
+                images);
             Assert.AreEqual(1, repo.GetInsects().Count);
             Assert.IsTrue(insectCreated);
         }

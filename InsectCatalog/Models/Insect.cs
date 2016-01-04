@@ -46,6 +46,7 @@ namespace InsectCatalog.Models
         public string LocationId { get; set; }
         [Required(AllowEmptyStrings = true)]
         public string Description { get; set; }
+        public List<string> ImageIds { get; set; }
 
         public int CompareTo(object obj)
         {

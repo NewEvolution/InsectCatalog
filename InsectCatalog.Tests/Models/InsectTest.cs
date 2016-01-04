@@ -1,5 +1,6 @@
 ﻿using System;
 using InsectCatalog.Models;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace InsectCatalog.Tests.Models
@@ -56,6 +57,22 @@ namespace InsectCatalog.Tests.Models
                 Latitude = 35.707926,
                 Longitude = -85.744456
             };
+            Image image1 = new Image
+            {
+                S3Id = "TestImage1id",
+                Caption = "This is a test image caption for image 1"
+            };
+            Image image2 = new Image
+            {
+                S3Id = "TestImage2id",
+                Caption = "This is a test image caption for image 2"
+            };
+            Image image3 = new Image
+            {
+                S3Id = "TestImage3id",
+                Caption = "This is a test image caption for image 3"
+            };
+            List<string> imageIdList = new List<string>() { image1.ImageId, image2.ImageId, image3.ImageId };
             Insect insect = new Insect
             {
                 Family = "Cerambycidae",
@@ -71,7 +88,8 @@ namespace InsectCatalog.Tests.Models
                 HostId = host.HostId,
                 Description = "Some informational text on the specimen and/or species",
                 MethodId = method.MethodId,
-                LocationId = location.LocationId
+                LocationId = location.LocationId,
+                ImageIds = imageIdList
             };
             Assert.AreEqual("Cerambycidae", insect.Family);
             Assert.AreEqual("Aseminae", insect.Tribe);
@@ -85,6 +103,7 @@ namespace InsectCatalog.Tests.Models
             Assert.AreEqual(host.HostId, insect.HostId);
             Assert.AreEqual(method.MethodId, insect.MethodId);
             Assert.AreEqual(location.LocationId, insect.LocationId);
+            CollectionAssert.AreEqual(imageIdList, insect.ImageIds);
         }
     }
 }

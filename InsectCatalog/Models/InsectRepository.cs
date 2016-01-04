@@ -62,6 +62,19 @@ namespace InsectCatalog.Models
             return allIdentifiers;
         }
 
+        public List<Image> GetImages()
+        {
+            List<Image> allImages = (from images in _context.Images select images).ToList();
+            allImages.Sort();
+            return allImages;
+        }
+
+        public Image GetRandomImage()
+        {
+            Image randomImage = (from images in _context.Images orderby Guid.NewGuid() select images).First();
+            return randomImage;
+        }
+
         public List<Location> GetLocations()
         {
             List<Location> allLocations = (from locations in _context.Locations select locations).ToList();
@@ -168,6 +181,25 @@ namespace InsectCatalog.Models
             }
         }
 
+        public bool CreateImage(string s3id, string caption)
+        {
+            Image newImage = new Image
+            {
+                S3Id = s3id,
+                Caption = caption
+            };
+            try
+            {
+                Image addedImage = _context.Images.Add(newImage);
+                _context.SaveChanges();
+                return addedImage != null;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public bool CreateLocation(string name, double latitude, double longitude)
         {
             Location newLocation = new Location
@@ -207,7 +239,7 @@ namespace InsectCatalog.Models
             }
         }
 
-        public bool CreateInsect(string family, string tribe, string genus, string species, string subspecies, string commonName, string county, string description, string location, DateTime collectionDate, string identifier, string collector, string author, string method, string host)
+        public bool CreateInsect(string family, string tribe, string genus, string species, string subspecies, string commonName, string county, string description, string location, DateTime collectionDate, string identifier, string collector, string author, string method, string host, List<string> images)
         {
             Insect newInsect = new Insect
             {
@@ -225,7 +257,8 @@ namespace InsectCatalog.Models
                 CollectorId = collector,
                 AuthorId = author,
                 MethodId = method,
-                HostId = host
+                HostId = host,
+                ImageIds = images
             };
             try
             {
