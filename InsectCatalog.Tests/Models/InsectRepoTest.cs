@@ -320,6 +320,53 @@ namespace InsectCatalog.Tests.Models
         }
 
         [TestMethod]
+        public void InsectRepositoryGetRandomInsect()
+        {
+            DateTime today = DateTime.Now;
+            Insect insect1 = new Insect
+            {
+                Family = "Cerambycidae",
+                Tribe = "Cerambycinae",
+                Genus = "Curius",
+                Species = "dentatus",
+                CommonName = "",
+                County = "Warren",
+                Description = "Here is some text for information",
+                CollectionDate = today.AddYears(-3)
+            };
+            Insect insect2 = new Insect
+            {
+                Family = "Cerambycidae",
+                Tribe = "Aseminae",
+                Genus = "Atimia",
+                Species = "confusa",
+                Subspecies = "confusa",
+                CommonName = "",
+                County = "Warren",
+                Description = "Optional text for information",
+                CollectionDate = today.AddDays(-20)
+            };
+            Insect insect3 = new Insect
+            {
+                Family = "Cerambycidae",
+                Tribe = "Aseminae",
+                Genus = "Atimia",
+                Species = "confusa",
+                Subspecies = "confusa",
+                CommonName = "",
+                County = "Warren",
+                Description = "Information text",
+                CollectionDate = today.AddHours(-14)
+            };
+            var allInsects = new List<Insect>() { insect1, insect2, insect3 };
+            mock_insect_set.Object.AddRange(allInsects);
+            ConnectMocksToDataStore(allInsects);
+            Insect expectedInsect = insect2;
+            Insect actualInsect = repo.GetRandomInsect();
+            Assert.AreEqual(expectedInsect, actualInsect);
+        }
+
+        [TestMethod]
         public void InsectRepositoryCreateAuthor()
         {
             string name = "Linnaeus";

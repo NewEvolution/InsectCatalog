@@ -83,6 +83,12 @@ namespace InsectCatalog.Models
             return allInsects;
         }
 
+        public Insect GetRandomInsect()
+        {
+            Insect randomInsect = (from insects in _context.Insects orderby Guid.NewGuid() select insects).First();
+            return randomInsect;
+        }
+
         public bool CreateAuthor(string name, string url)
         {
             Author newAuthor = new Author { Name = name, URL = url };
