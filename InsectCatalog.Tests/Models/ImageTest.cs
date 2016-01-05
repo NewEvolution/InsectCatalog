@@ -20,8 +20,10 @@ namespace InsectCatalog.Tests.Models
             Image image = new Image
             {
                 S3Id = "TestImageS3id",
-                Caption = "This is the caption for this image"
+                Caption = "This is the caption for this image",
+                Display = true
             };
+            Assert.IsTrue(image.Display);
             Assert.AreEqual("TestImageS3id", image.S3Id);
             Assert.AreEqual("This is the caption for this image", image.Caption);
         }

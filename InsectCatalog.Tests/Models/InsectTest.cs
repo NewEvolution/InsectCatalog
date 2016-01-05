@@ -72,7 +72,7 @@ namespace InsectCatalog.Tests.Models
                 S3Id = "TestImage3id",
                 Caption = "This is a test image caption for image 3"
             };
-            List<string> imageIdList = new List<string>() { image1.ImageId, image2.ImageId, image3.ImageId };
+            List<Image> images = new List<Image>() { image1, image2, image3 };
             Insect insect = new Insect
             {
                 Family = "Cerambycidae",
@@ -82,14 +82,14 @@ namespace InsectCatalog.Tests.Models
                 Subspecies = "confusa",
                 County = "Warren",
                 CollectionDate = today,
-                IdentifierId = IdBy.IdentifierId,
-                CollectorId = CollBy.CollectorId,
-                AuthorId = author.AuthorId,
-                HostId = host.HostId,
+                Identifier = IdBy,
+                Collector = CollBy,
+                Author = author,
+                Host = host,
                 Description = "Some informational text on the specimen and/or species",
-                MethodId = method.MethodId,
-                LocationId = location.LocationId,
-                ImageIds = imageIdList
+                Method = method,
+                Location = location,
+                Images = images
             };
             Assert.AreEqual("Cerambycidae", insect.Family);
             Assert.AreEqual("Aseminae", insect.Tribe);
@@ -98,12 +98,12 @@ namespace InsectCatalog.Tests.Models
             Assert.AreEqual("confusa", insect.Subspecies);
             Assert.AreEqual("Warren", insect.County);
             Assert.AreEqual(today, insect.CollectionDate);
-            Assert.AreEqual(IdBy.IdentifierId, insect.IdentifierId);
-            Assert.AreEqual(author.AuthorId, insect.AuthorId);
-            Assert.AreEqual(host.HostId, insect.HostId);
-            Assert.AreEqual(method.MethodId, insect.MethodId);
-            Assert.AreEqual(location.LocationId, insect.LocationId);
-            CollectionAssert.AreEqual(imageIdList, insect.ImageIds);
+            Assert.AreEqual(IdBy, insect.Identifier);
+            Assert.AreEqual(author, insect.Author);
+            Assert.AreEqual(host, insect.Host);
+            Assert.AreEqual(method, insect.Method);
+            Assert.AreEqual(location, insect.Location);
+            CollectionAssert.AreEqual(images, insect.Images);
         }
     }
 }

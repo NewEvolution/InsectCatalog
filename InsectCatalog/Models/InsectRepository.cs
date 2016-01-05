@@ -69,9 +69,9 @@ namespace InsectCatalog.Models
             return allImages;
         }
 
-        public Image GetRandomImage()
+        public Image GetRandomDisplayImage()
         {
-            Image randomImage = (from images in _context.Images orderby Guid.NewGuid() select images).First();
+            Image randomImage = (from images in _context.Images where images.Display orderby Guid.NewGuid() select images).First();
             return randomImage;
         }
 
@@ -181,12 +181,13 @@ namespace InsectCatalog.Models
             }
         }
 
-        public bool CreateImage(string s3id, string caption)
+        public bool CreateImage(string s3id, string caption, bool display)
         {
             Image newImage = new Image
             {
                 S3Id = s3id,
-                Caption = caption
+                Caption = caption,
+                Display = display
             };
             try
             {
@@ -239,7 +240,7 @@ namespace InsectCatalog.Models
             }
         }
 
-        public bool CreateInsect(string family, string tribe, string genus, string species, string subspecies, string commonName, string county, string description, string location, DateTime collectionDate, string identifier, string collector, string author, string method, string host, List<string> images)
+        public bool CreateInsect(string family, string tribe, string genus, string species, string subspecies, string commonName, string county, string description, Location location, DateTime collectionDate, Identifier identifier, Collector collector, Author author, Method method, Host host, List<Image> images)
         {
             Insect newInsect = new Insect
             {
@@ -251,14 +252,14 @@ namespace InsectCatalog.Models
                 CommonName = commonName,
                 County = county,
                 Description = description,
-                LocationId = location,
+                Location = location,
                 CollectionDate = collectionDate,
-                IdentifierId = identifier,
-                CollectorId = collector,
-                AuthorId = author,
-                MethodId = method,
-                HostId = host,
-                ImageIds = images
+                Identifier = identifier,
+                Collector = collector,
+                Author = author,
+                Method = method,
+                Host = host,
+                Images = images
             };
             try
             {

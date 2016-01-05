@@ -33,20 +33,20 @@ namespace InsectCatalog.Models
         [Required]
         public DateTime CollectionDate { get; set; }
         [Required]
-        public string IdentifierId { get; set; }
+        public Identifier Identifier { get; set; }
         [Required]
-        public string CollectorId { get; set; }
+        public Collector Collector { get; set; }
         [Required]
-        public string AuthorId { get; set; }
+        public Author Author { get; set; }
         [Required(AllowEmptyStrings = true)]
-        public string MethodId { get; set; }
+        public Method Method { get; set; }
         [Required(AllowEmptyStrings = true)]
-        public string HostId { get; set; }
+        public Host Host { get; set; }
         [Required]
-        public string LocationId { get; set; }
+        public Location Location { get; set; }
         [Required(AllowEmptyStrings = true)]
         public string Description { get; set; }
-        public List<string> ImageIds { get; set; }
+        public List<Image> Images { get; set; }
 
         public int CompareTo(object obj)
         {
