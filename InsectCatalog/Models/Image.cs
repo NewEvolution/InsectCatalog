@@ -18,6 +18,8 @@ namespace InsectCatalog.Models
         [DefaultValue (false)]
         [Required]
         public bool Display { get; set; }
+        [Required]
+        public Person Photographer { get; set; }
 
         public int CompareTo(object obj)
         {

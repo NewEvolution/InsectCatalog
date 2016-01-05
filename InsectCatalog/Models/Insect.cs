@@ -35,9 +35,9 @@ namespace InsectCatalog.Models
         [Required]
         public DateTime CollectionDate { get; set; }
         [Required]
-        public Identifier Identifier { get; set; }
+        public Person Identifier { get; set; }
         [Required]
-        public Collector Collector { get; set; }
+        public Person Collector { get; set; }
         [Required]
         public Author Author { get; set; }
         [DefaultValue("")]

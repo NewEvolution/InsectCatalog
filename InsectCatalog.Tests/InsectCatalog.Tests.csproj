@@ -98,9 +98,8 @@
   <ItemGroup>
     <Compile Include="Models\MethodTest.cs" />
     <Compile Include="Models\HostTest.cs" />
-    <Compile Include="Models\CollectorTest.cs" />
+    <Compile Include="Models\PersonTest.cs" />
     <Compile Include="Models\InsectTest.cs" />
-    <Compile Include="Models\IdentifierTest.cs" />
     <Compile Include="Models\AuthorTest.cs" />
     <Compile Include="Models\LocationTest.cs" />
     <Compile Include="Models\InsectRepoTest.cs" />

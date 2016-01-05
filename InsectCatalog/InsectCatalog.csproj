@@ -236,8 +236,7 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Method.cs" />
     <Compile Include="Models\Author.cs" />
-    <Compile Include="Models\Collector.cs" />
-    <Compile Include="Models\Identifier.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Insect.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

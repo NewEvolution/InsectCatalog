@@ -48,18 +48,11 @@ namespace InsectCatalog.Models
             return allHosts;
         }
 
-        public List<Collector> GetCollectors()
+        public List<Person> GetPeople()
         {
-            List<Collector> allCollectors = (from collectors in _context.Collectors select collectors).ToList();
-            allCollectors.Sort();
-            return allCollectors;
-        }
-
-        public List<Identifier> GetIdentifiers()
-        {
-            List<Identifier> allIdentifiers = (from identifiers in _context.Identifiers select identifiers).ToList();
-            allIdentifiers.Sort();
-            return allIdentifiers;
+            List<Person> allPeople = (from people in _context.People select people).ToList();
+            allPeople.Sort();
+            return allPeople;
         }
 
         public List<Image> GetImages()
@@ -117,9 +110,9 @@ namespace InsectCatalog.Models
             }
         }
 
-        public bool CreateCollector(string firstName, string middleName, string lastName, string email, string url)
+        public bool CreatePerson(string firstName, string middleName, string lastName, string email, string url)
         {
-            Collector newCollector = new Collector
+            Person newPerson = new Person
             {
                 FirstName = firstName,
                 MiddleName = middleName,
@@ -129,9 +122,9 @@ namespace InsectCatalog.Models
             };
             try
             {
-                Collector addedCollector = _context.Collectors.Add(newCollector);
+                Person addedPerson = _context.People.Add(newPerson);
                 _context.SaveChanges();
-                return addedCollector != null;
+                return addedPerson != null;
             }
             catch (Exception)
             {
@@ -159,35 +152,14 @@ namespace InsectCatalog.Models
             }
         }
 
-        public bool CreateIdentifier(string firstName, string middleName, string lastName, string email, string url)
-        {
-            Identifier newIdentifier = new Identifier
-            {
-                FirstName = firstName,
-                MiddleName = middleName,
-                LastName = lastName,
-                Email = email,
-                URL = url
-            };
-            try
-            {
-                Identifier addedIdentifier = _context.Identifiers.Add(newIdentifier);
-                _context.SaveChanges();
-                return addedIdentifier != null;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public bool CreateImage(string s3id, string caption, bool display)
+        public bool CreateImage(string s3id, string caption, bool display, Person photographer)
         {
             Image newImage = new Image
             {
                 S3Id = s3id,
                 Caption = caption,
-                Display = display
+                Display = display,
+                Photographer = photographer
             };
             try
             {
@@ -240,7 +212,7 @@ namespace InsectCatalog.Models
             }
         }
 
-        public bool CreateInsect(string family, string tribe, string genus, string species, string subspecies, string commonName, string county, string description, Location location, DateTime collectionDate, Identifier identifier, Collector collector, Author author, Method method, Host host, List<Image> images)
+        public bool CreateInsect(string family, string tribe, string genus, string species, string subspecies, string commonName, string county, string description, Location location, DateTime collectionDate, Person identifier, Person collector, Author author, Method method, Host host, List<Image> images)
         {
             Insect newInsect = new Insect
             {

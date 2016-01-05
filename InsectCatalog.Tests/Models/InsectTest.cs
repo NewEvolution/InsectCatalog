@@ -19,7 +19,7 @@ namespace InsectCatalog.Tests.Models
         public void InsectHasItsProperties()
         {
             DateTime today = DateTime.Today;
-            Identifier IdBy = new Identifier
+            Person IdBy = new Person
             {
                 FirstName = "Ryan",
                 MiddleName = "J.",
@@ -27,7 +27,7 @@ namespace InsectCatalog.Tests.Models
                 URL = "http://portfolio.ryantanay.com",
                 Email = "rtanay@gmail.com"
             };
-            Collector CollBy = new Collector
+            Person CollBy = new Person
             {
                 FirstName = "Ryan",
                 MiddleName = "J.",
@@ -60,17 +60,44 @@ namespace InsectCatalog.Tests.Models
             Image image1 = new Image
             {
                 S3Id = "TestImage1id",
-                Caption = "This is a test image caption for image 1"
+                Caption = "This is a test image caption for image 1",
+                Display = true,
+                Photographer = new Person
+                {
+                    FirstName = "Ryan",
+                    MiddleName = "J.",
+                    LastName = "Tanay",
+                    URL = "http://portfolio.ryantanay.com",
+                    Email = "rtanay@gmail.com"
+                }
             };
             Image image2 = new Image
             {
                 S3Id = "TestImage2id",
-                Caption = "This is a test image caption for image 2"
+                Caption = "This is a test image caption for image 2",
+                Display = false,
+                Photographer = new Person
+                {
+                    FirstName = "Ryan",
+                    MiddleName = "J.",
+                    LastName = "Tanay",
+                    URL = "http://portfolio.ryantanay.com",
+                    Email = "rtanay@gmail.com"
+                }
             };
             Image image3 = new Image
             {
                 S3Id = "TestImage3id",
-                Caption = "This is a test image caption for image 3"
+                Caption = "This is a test image caption for image 3",
+                Display = false,
+                Photographer = new Person
+                {
+                    FirstName = "Ryan",
+                    MiddleName = "J.",
+                    LastName = "Tanay",
+                    URL = "http://portfolio.ryantanay.com",
+                    Email = "rtanay@gmail.com"
+                }
             };
             List<Image> images = new List<Image>() { image1, image2, image3 };
             Insect insect = new Insect

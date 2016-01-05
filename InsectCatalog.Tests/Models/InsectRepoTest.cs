@@ -14,9 +14,8 @@ namespace InsectCatalog.Tests.Models
         private Mock<InsectContext> mock_context;
         private Mock<DbSet<Insect>> mock_insect_set;
         private Mock<DbSet<Author>> mock_author_set;
-        private Mock<DbSet<Collector>> mock_collector_set;
+        private Mock<DbSet<Person>> mock_person_set;
         private Mock<DbSet<Host>> mock_host_set;
-        private Mock<DbSet<Identifier>> mock_identifier_set;
         private Mock<DbSet<Image>> mock_image_set;
         private Mock<DbSet<Location>> mock_location_set;
         private Mock<DbSet<Method>> mock_method_set;
@@ -42,14 +41,14 @@ namespace InsectCatalog.Tests.Models
             mock_context.Setup(a => a.Authors).Returns(mock_author_set.Object);
         }
 
-        private void ConnectMocksToDataStore(IEnumerable<Collector> data_store)
+        private void ConnectMocksToDataStore(IEnumerable<Person> data_store)
         {
             var data_source = data_store.AsQueryable();
-            mock_collector_set.As<IQueryable<Collector>>().Setup(data => data.Provider).Returns(data_source.Provider);
-            mock_collector_set.As<IQueryable<Collector>>().Setup(data => data.Expression).Returns(data_source.Expression);
-            mock_collector_set.As<IQueryable<Collector>>().Setup(data => data.ElementType).Returns(data_source.ElementType);
-            mock_collector_set.As<IQueryable<Collector>>().Setup(data => data.GetEnumerator()).Returns(data_source.GetEnumerator());
-            mock_context.Setup(a => a.Collectors).Returns(mock_collector_set.Object);
+            mock_person_set.As<IQueryable<Person>>().Setup(data => data.Provider).Returns(data_source.Provider);
+            mock_person_set.As<IQueryable<Person>>().Setup(data => data.Expression).Returns(data_source.Expression);
+            mock_person_set.As<IQueryable<Person>>().Setup(data => data.ElementType).Returns(data_source.ElementType);
+            mock_person_set.As<IQueryable<Person>>().Setup(data => data.GetEnumerator()).Returns(data_source.GetEnumerator());
+            mock_context.Setup(a => a.People).Returns(mock_person_set.Object);
         }
 
         private void ConnectMocksToDataStore(IEnumerable<Host> data_store)
@@ -60,16 +59,6 @@ namespace InsectCatalog.Tests.Models
             mock_host_set.As<IQueryable<Host>>().Setup(data => data.ElementType).Returns(data_source.ElementType);
             mock_host_set.As<IQueryable<Host>>().Setup(data => data.GetEnumerator()).Returns(data_source.GetEnumerator());
             mock_context.Setup(a => a.Hosts).Returns(mock_host_set.Object);
-        }
-
-        private void ConnectMocksToDataStore(IEnumerable<Identifier> data_store)
-        {
-            var data_source = data_store.AsQueryable();
-            mock_identifier_set.As<IQueryable<Identifier>>().Setup(data => data.Provider).Returns(data_source.Provider);
-            mock_identifier_set.As<IQueryable<Identifier>>().Setup(data => data.Expression).Returns(data_source.Expression);
-            mock_identifier_set.As<IQueryable<Identifier>>().Setup(data => data.ElementType).Returns(data_source.ElementType);
-            mock_identifier_set.As<IQueryable<Identifier>>().Setup(data => data.GetEnumerator()).Returns(data_source.GetEnumerator());
-            mock_context.Setup(a => a.Identifiers).Returns(mock_identifier_set.Object);
         }
 
         private void ConnectMocksToDataStore(IEnumerable<Image> data_store)
@@ -108,9 +97,8 @@ namespace InsectCatalog.Tests.Models
             mock_context = new Mock<InsectContext>();
             mock_insect_set = new Mock<DbSet<Insect>>();
             mock_author_set = new Mock<DbSet<Author>>();
-            mock_collector_set = new Mock<DbSet<Collector>>();
+            mock_person_set = new Mock<DbSet<Person>>();
             mock_host_set = new Mock<DbSet<Host>>();
-            mock_identifier_set = new Mock<DbSet<Identifier>>();
             mock_image_set = new Mock<DbSet<Image>>();
             mock_location_set = new Mock<DbSet<Location>>();
             mock_method_set = new Mock<DbSet<Method>>();
@@ -123,9 +111,8 @@ namespace InsectCatalog.Tests.Models
             mock_context = null;
             mock_insect_set = null;
             mock_author_set = null;
-            mock_collector_set = null;
+            mock_person_set = null;
             mock_host_set = null;
-            mock_identifier_set = null;
             mock_image_set = null;
             mock_location_set = null;
             mock_method_set = null;
@@ -167,17 +154,17 @@ namespace InsectCatalog.Tests.Models
         }
 
         [TestMethod]
-        public void InsectRepositoryGetAllCollectors()
+        public void InsectRepositoryGetAllPeople()
         {
-            Collector collector1 = new Collector { LastName = "Tanay" };
-            Collector collector2 = new Collector { LastName = "Addesso" };
-            Collector collector3 = new Collector { LastName = "Allen" };
-            var allCollectors = new List<Collector>() { collector1, collector2, collector3 };
-            mock_collector_set.Object.AddRange(allCollectors);
-            ConnectMocksToDataStore(allCollectors);
-            List<Collector> expectedCollectors = new List<Collector>() { collector2, collector3, collector1 };
-            List<Collector> actualCollectors = repo.GetCollectors();
-            CollectionAssert.AreEqual(expectedCollectors, actualCollectors);
+            Person person1 = new Person { LastName = "Tanay" };
+            Person person2 = new Person { LastName = "Addesso" };
+            Person person3 = new Person { LastName = "Allen" };
+            var allPeople = new List<Person>() { person1, person2, person3 };
+            mock_person_set.Object.AddRange(allPeople);
+            ConnectMocksToDataStore(allPeople);
+            List<Person> expectedPeople = new List<Person>() { person2, person3, person1 };
+            List<Person> actualPeople = repo.GetPeople();
+            CollectionAssert.AreEqual(expectedPeople, actualPeople);
         }
 
         [TestMethod]
@@ -192,20 +179,6 @@ namespace InsectCatalog.Tests.Models
             List<Host> expectedHosts = new List<Host>() { host3, host1, host2 };
             List<Host> actualHosts = repo.GetHosts();
             CollectionAssert.AreEqual(expectedHosts, actualHosts);
-        }
-
-        [TestMethod]
-        public void InsectRepositoryGetAllIdentifiers()
-        {
-            Identifier identifier1 = new Identifier { LastName = "Tanay" };
-            Identifier identifier2 = new Identifier { LastName = "Addesso" };
-            Identifier identifier3 = new Identifier { LastName = "Allen" };
-            var allIdentifiers = new List<Identifier>() { identifier1, identifier2, identifier3 };
-            mock_identifier_set.Object.AddRange(allIdentifiers);
-            ConnectMocksToDataStore(allIdentifiers);
-            List<Identifier> expectedIdentifiers = new List<Identifier>() { identifier2, identifier3, identifier1 };
-            List<Identifier> actualIdentifiers = repo.GetIdentifiers();
-            CollectionAssert.AreEqual(expectedIdentifiers, actualIdentifiers);
         }
 
         [TestMethod]
@@ -400,19 +373,22 @@ namespace InsectCatalog.Tests.Models
             {
                 S3Id = "Image1TestS3id",
                 Caption = "Image 1 Test Caption",
-                Display = true
+                Display = true,
+                Photographer = new Person()
             };
             Image image2 = new Image
             {
                 S3Id = "Image2TestS3id",
                 Caption = "Image 2 Test Caption",
-                Display = false
+                Display = false,
+                Photographer = new Person()
             };
             Image image3 = new Image
             {
                 S3Id = "Image3TestS3id",
                 Caption = "Image 3 Test Caption",
-                Display = true
+                Display = true,
+                Photographer = new Person()
             };
             var allImages = new List<Image>() { image1, image2, image3 };
             mock_image_set.Object.AddRange(allImages);
@@ -438,21 +414,21 @@ namespace InsectCatalog.Tests.Models
         }
 
         [TestMethod]
-        public void InsectRepositoryCreateCollector()
+        public void InsectRepositoryCreatePerson()
         {
             string firstName = "Ryan";
             string middleName = "J";
             string lastName = "Tanay";
             string email = "rtanay@gmail.com";
             string url = "http://portfolio.ryantanay.com";
-            List<Collector> allCollectors = new List<Collector>();
-            ConnectMocksToDataStore(allCollectors);
-            mock_collector_set.Setup(c => c.Add(It.IsAny<Collector>()))
-                .Callback((Collector x) => allCollectors.Add(x))
-                .Returns(mock_collector_set.Object.Where(c => c.LastName == lastName && c.FirstName == firstName).Single);
-            bool collectorCreated = repo.CreateCollector(firstName, middleName, lastName, email, url);
-            Assert.AreEqual(1, repo.GetCollectors().Count);
-            Assert.IsTrue(collectorCreated);
+            List<Person> allPeople = new List<Person>();
+            ConnectMocksToDataStore(allPeople);
+            mock_person_set.Setup(c => c.Add(It.IsAny<Person>()))
+                .Callback((Person x) => allPeople.Add(x))
+                .Returns(mock_person_set.Object.Where(c => c.LastName == lastName && c.FirstName == firstName).Single);
+            bool personCreated = repo.CreatePerson(firstName, middleName, lastName, email, url);
+            Assert.AreEqual(1, repo.GetPeople().Count);
+            Assert.IsTrue(personCreated);
         }
 
         [TestMethod]
@@ -472,35 +448,25 @@ namespace InsectCatalog.Tests.Models
         }
 
         [TestMethod]
-        public void InsectRepositoryCreateIdentifier()
-        {
-            string firstName = "Ryan";
-            string middleName = "J";
-            string lastName = "Tanay";
-            string email = "rtanay@gmail.com";
-            string url = "http://portfolio.ryantanay.com";
-            List<Identifier> allIdentifiers = new List<Identifier>();
-            ConnectMocksToDataStore(allIdentifiers);
-            mock_identifier_set.Setup(i => i.Add(It.IsAny<Identifier>()))
-                .Callback((Identifier x) => allIdentifiers.Add(x))
-                .Returns(mock_identifier_set.Object.Where(i => i.LastName == lastName && i.FirstName == firstName).Single);
-            bool identifierCreated = repo.CreateIdentifier(firstName, middleName, lastName, email, url);
-            Assert.AreEqual(1, repo.GetIdentifiers().Count);
-            Assert.IsTrue(identifierCreated);
-        }
-
-        [TestMethod]
         public void InsectRepositoryCreateImage()
         {
             string s3id = "TestS3id";
             string caption = "Test Image Caption";
             bool display = false;
+            Person photographer = new Person
+            {
+                FirstName = "Ryan",
+                MiddleName = "J.",
+                LastName = "Tanay",
+                URL = "http://portfolio.ryantanay.com",
+                Email = "rtanay@gmail.com"
+            };
             List<Image> allImages = new List<Image>();
             ConnectMocksToDataStore(allImages);
             mock_image_set.Setup(i => i.Add(It.IsAny<Image>()))
                 .Callback((Image x) => allImages.Add(x))
                 .Returns(mock_image_set.Object.Where(i => i.S3Id == s3id).Single);
-            bool imageCreated = repo.CreateImage(s3id, caption, display);
+            bool imageCreated = repo.CreateImage(s3id, caption, display, photographer);
             Assert.AreEqual(1, repo.GetImages().Count);
             Assert.IsTrue(imageCreated);
         }
@@ -549,8 +515,8 @@ namespace InsectCatalog.Tests.Models
             string description = "Information text";
             Location location = new Location();
             DateTime collectionDate = DateTime.Now;
-            Identifier identifier = new Identifier();
-            Collector collector = new Collector();
+            Person identifier = new Person();
+            Person collector = new Person();
             Author author = new Author();
             Method method = new Method();
             Host host = new Host();
@@ -608,22 +574,16 @@ namespace InsectCatalog.Tests.Models
             string lastName = "Tanay";
             string email = "rtanay@gmail.com";
             string url = "http://portfolio.ryantanay.com";
-            List<Collector> allCollectors = new List<Collector>();
-            ConnectMocksToDataStore(allCollectors);
-            mock_collector_set.Setup(c => c.Add(It.IsAny<Collector>()))
-                .Callback((Collector x) => allCollectors.Add(x))
-                .Returns(mock_collector_set.Object.Where(c => c.LastName == lastName && c.FirstName == firstName).Single);
-            bool collectorCreated = repo.CreateCollector(firstName, middleName, lastName, email, url);
-            Collector collector = repo.GetCollectors().First();
-            Assert.IsTrue(collectorCreated);
-            List<Identifier> allIdentifiers = new List<Identifier>();
-            ConnectMocksToDataStore(allIdentifiers);
-            mock_identifier_set.Setup(i => i.Add(It.IsAny<Identifier>()))
-                .Callback((Identifier x) => allIdentifiers.Add(x))
-                .Returns(mock_identifier_set.Object.Where(i => i.LastName == lastName && i.FirstName == firstName).Single);
-            bool identifierCreated = repo.CreateIdentifier(firstName, middleName, lastName, email, url);
-            Identifier identifier = repo.GetIdentifiers().First();
-            Assert.IsTrue(identifierCreated);
+            List<Person> allPeople = new List<Person>();
+            ConnectMocksToDataStore(allPeople);
+            mock_person_set.Setup(c => c.Add(It.IsAny<Person>()))
+                .Callback((Person x) => allPeople.Add(x))
+                .Returns(mock_person_set.Object.Where(c => c.LastName == lastName && c.FirstName == firstName).Single);
+            bool personCreated = repo.CreatePerson(firstName, middleName, lastName, email, url);
+            Person person = repo.GetPeople().First();
+            Person collector = person;
+            Person identifier = person;
+            Assert.IsTrue(personCreated);
             string s3id1 = "TestS3id1";
             string caption1 = "Test Image Caption 1";
             bool display1 = true;
@@ -638,9 +598,9 @@ namespace InsectCatalog.Tests.Models
             mock_image_set.Setup(i => i.Add(It.IsAny<Image>()))
                 .Callback((Image x) => allImages.Add(x))
                 .Returns(mock_image_set.Object.Where(i => i.S3Id == s3id1).Single);
-            bool imageCreated = repo.CreateImage(s3id1, caption1, display1);
-            repo.CreateImage(s3id2, caption2, display2);
-            repo.CreateImage(s3id3, caption3, display3);
+            bool imageCreated = repo.CreateImage(s3id1, caption1, display1, person);
+            repo.CreateImage(s3id2, caption2, display2, person);
+            repo.CreateImage(s3id3, caption3, display3, person);
             List<Image> images = repo.GetImages();
             Assert.IsTrue(imageCreated);
             string hostName = "Celtis occidentalis";

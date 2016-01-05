@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InsectCatalog.Models
 {
-    public class Identifier : IComparable
+    public class Person : IComparable
     {
         [Key]
-        public string IdentifierId { get; set; }
+        public string PersonId { get; set; }
         [EmailAddress]
         public string Email { get; set; }
         [Required]
@@ -22,8 +22,8 @@ namespace InsectCatalog.Models
 
         public int CompareTo(object obj)
         {
-            Identifier compIdentifier = obj as Identifier;
-            return LastName.CompareTo(compIdentifier.LastName);
+            Person compPerson = obj as Person;
+            return LastName.CompareTo(compPerson.LastName);
         }
     }
 }

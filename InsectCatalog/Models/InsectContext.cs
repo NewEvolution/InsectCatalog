@@ -10,9 +10,8 @@ namespace InsectCatalog.Models
     {
         public virtual DbSet<Insect> Insects { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
-        public virtual DbSet<Collector> Collectors { get; set; }
+        public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<Host> Hosts { get; set; }
-        public virtual DbSet<Identifier> Identifiers { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Method> Methods { get; set; }
