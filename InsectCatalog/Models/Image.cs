@@ -16,6 +16,7 @@ namespace InsectCatalog.Models
         [Required(AllowEmptyStrings = true)]
         public string Caption { get; set; }
         [DefaultValue (false)]
+        [Required]
         public bool Display { get; set; }
 
         public int CompareTo(object obj)

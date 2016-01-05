@@ -2,6 +2,7 @@
 using System.Web;
 using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace InsectCatalog.Models
@@ -22,6 +23,7 @@ namespace InsectCatalog.Models
         [Required]
         [RegularExpression(@"^[a-z]+")]
         public string Species { get; set; }
+        [DefaultValue("")]
         [Required(AllowEmptyStrings = true)]
         [RegularExpression(@"^[a-z]+")]
         public string Subspecies { get; set; }
@@ -38,12 +40,15 @@ namespace InsectCatalog.Models
         public Collector Collector { get; set; }
         [Required]
         public Author Author { get; set; }
+        [DefaultValue("")]
         [Required(AllowEmptyStrings = true)]
         public Method Method { get; set; }
+        [DefaultValue("")]
         [Required(AllowEmptyStrings = true)]
         public Host Host { get; set; }
         [Required]
         public Location Location { get; set; }
+        [DefaultValue ("")]
         [Required(AllowEmptyStrings = true)]
         public string Description { get; set; }
         public List<Image> Images { get; set; }
