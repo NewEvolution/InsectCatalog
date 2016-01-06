@@ -34,7 +34,6 @@ namespace InsectCatalog.Models
         public string County { get; set; }
         [Required]
         public DateTime CollectionDate { get; set; }
-        [Required]
         public Person Identifier { get; set; }
         [Required]
         public Person Collector { get; set; }

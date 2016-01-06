@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InsectCatalog.Models.Insect>
+﻿@model InsectCatalog.Models.Insect
 @{
     ViewBag.Title = "Home";
 }
@@ -7,7 +7,7 @@
         <img src="http://lorempixel.com/1024/768" />
     </div>
     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-        <h3><em>Genus species</em></h3>
+        <h3><em>@{Model.Genus}</em></h3>
         <span class="attribution">Photo by <em>Photo Person</em></span>
         <p class="caption">This is the retrieved caption for the photo</p>
         <div class="main-nav">

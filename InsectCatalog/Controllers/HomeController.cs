@@ -18,6 +18,8 @@ namespace InsectCatalog.Controllers
 
         public ActionResult Index()
         {
+            //Insect splashInsect = Repo.GetRandomInsect();
+            //return View(splashInsect);
             return View();
         }
 
