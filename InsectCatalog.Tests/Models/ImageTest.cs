@@ -19,6 +19,7 @@ namespace InsectCatalog.Tests.Models
         {
             Person photographer = new Person
             {
+                PersonId = "9dsflc",
                 FirstName = "Ryan",
                 MiddleName = "J.",
                 LastName = "Tanay",
@@ -27,11 +28,13 @@ namespace InsectCatalog.Tests.Models
             };
             Image image = new Image
             {
+                ImageId = "skdr9",
                 S3Id = "TestImageS3id",
                 Caption = "This is the caption for this image",
                 Display = true,
                 Photographer = photographer
             };
+            Assert.AreEqual("skdr9", image.ImageId);
             Assert.IsTrue(image.Display);
             Assert.AreEqual("TestImageS3id", image.S3Id);
             Assert.AreEqual(photographer, image.Photographer);

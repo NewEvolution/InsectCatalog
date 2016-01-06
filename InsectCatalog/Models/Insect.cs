@@ -34,23 +34,23 @@ namespace InsectCatalog.Models
         public string County { get; set; }
         [Required]
         public DateTime CollectionDate { get; set; }
-        public Person Identifier { get; set; }
+        public virtual Person Identifier { get; set; }
         [Required]
-        public Person Collector { get; set; }
+        public virtual Person Collector { get; set; }
         [Required]
-        public Author Author { get; set; }
+        public virtual Author Author { get; set; }
         [DefaultValue("")]
         [Required(AllowEmptyStrings = true)]
-        public Method Method { get; set; }
+        public virtual Method Method { get; set; }
         [DefaultValue("")]
         [Required(AllowEmptyStrings = true)]
-        public Host Host { get; set; }
+        public virtual Host Host { get; set; }
         [Required]
         public Location Location { get; set; }
         [DefaultValue ("")]
         [Required(AllowEmptyStrings = true)]
         public string Description { get; set; }
-        public List<Image> Images { get; set; }
+        public virtual List<Image> Images { get; set; }
 
         public int CompareTo(object obj)
         {

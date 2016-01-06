@@ -13,7 +13,7 @@ namespace InsectCatalog.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201601061546134_InitialCreate"; }
+            get { return "201601062106518_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

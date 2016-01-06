@@ -19,7 +19,7 @@ namespace InsectCatalog.Models
         [Required]
         public bool Display { get; set; }
         [Required]
-        public Person Photographer { get; set; }
+        public virtual Person Photographer { get; set; }
 
         public int CompareTo(object obj)
         {

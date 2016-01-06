@@ -21,6 +21,7 @@ namespace InsectCatalog.Tests.Models
             DateTime today = DateTime.Today;
             Person IdBy = new Person
             {
+                PersonId = "8cj",
                 FirstName = "Ryan",
                 MiddleName = "J.",
                 LastName = "Tanay",
@@ -29,6 +30,7 @@ namespace InsectCatalog.Tests.Models
             };
             Person CollBy = new Person
             {
+                PersonId = "id8e",
                 FirstName = "Ryan",
                 MiddleName = "J.",
                 LastName = "Tanay",
@@ -37,28 +39,33 @@ namespace InsectCatalog.Tests.Models
             };
             Author author = new Author
             {
+                AuthorId = "ciuk",
                 Name = "Linnaeus",
                 URL = "http://en.wikipedia.org/wiki/Linnaeus"
             };
             Host host = new Host
             {
+                HostId = "9sdk",
                 Name = "Cercis canadensis",
                 CommonName = "Redbud",
                 URL = "https://en.wikipedia.org/wiki/Cercis_canadensis"
             };
             Method method = new Method
             {
+                MethodId = "jsdf",
                 Name = "Malaise Trap",
                 URL = "http://en.wikipedia.org/wiki/Malaise_Trap"
             };
             Location location = new Location
             {
+                LocationId = "sdfd",
                 Name = "NRC McMinnville",
                 Latitude = 35.707926,
                 Longitude = -85.744456
             };
             Image image1 = new Image
             {
+                ImageId = "wt44",
                 S3Id = "TestImage1id",
                 Caption = "This is a test image caption for image 1",
                 Display = true,
@@ -73,6 +80,7 @@ namespace InsectCatalog.Tests.Models
             };
             Image image2 = new Image
             {
+                ImageId = "7vcj",
                 S3Id = "TestImage2id",
                 Caption = "This is a test image caption for image 2",
                 Display = false,
@@ -87,6 +95,7 @@ namespace InsectCatalog.Tests.Models
             };
             Image image3 = new Image
             {
+                ImageId = "283d",
                 S3Id = "TestImage3id",
                 Caption = "This is a test image caption for image 3",
                 Display = false,
@@ -102,6 +111,7 @@ namespace InsectCatalog.Tests.Models
             List<Image> images = new List<Image>() { image1, image2, image3 };
             Insect insect = new Insect
             {
+                InsectId = "8sdkf",
                 Family = "Cerambycidae",
                 Tribe = "Aseminae",
                 Genus = "Atimia",

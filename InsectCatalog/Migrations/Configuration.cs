@@ -86,7 +86,7 @@ namespace InsectCatalog.Migrations
 
             Insect insect = new Insect
             {
-                InsectId ="0a",
+                InsectId = "0a",
                 Family = "Cerambycidae",
                 Tribe = "Lamiinae",
                 Genus = "Ecyrus",
