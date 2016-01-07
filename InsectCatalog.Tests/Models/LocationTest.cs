@@ -19,12 +19,10 @@ namespace InsectCatalog.Tests.Models
         {
             Location location = new Location
             {
-                LocationId = "7cu",
                 Name = "NRC, McMinnville",
                 Latitude = 35.707926,
                 Longitude = -85.744456
             };
-            Assert.AreEqual("7cu", location.LocationId);
             Assert.AreEqual("NRC, McMinnville", location.Name);
             Assert.AreEqual(35.707926, location.Latitude);
             Assert.AreEqual(-85.744456, location.Longitude);

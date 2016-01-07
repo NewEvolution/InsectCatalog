@@ -6,6 +6,7 @@ namespace InsectCatalog.Migrations
     using System.Collections.Generic;
     using InsectCatalog.Models;
     using System.Linq;
+    using System.Data.Entity.Validation;
 
     internal sealed class Configuration : DbMigrationsConfiguration<InsectContext>
     {
@@ -18,14 +19,12 @@ namespace InsectCatalog.Migrations
         {
             Author author = new Author
             {
-                AuthorId = "0a",
                 Name = "Say",
                 URL = "https://en.wikipedia.org/wiki/Thomas_Say"
             };
 
             Host host = new Host
             {
-                HostId = "0a",
                 Name = "Liriodendron tulipifera",
                 CommonName = "tulip tree",
                 URL = "https://en.wikipedia.org/wiki/Liriodendron_tulipifera"
@@ -33,7 +32,6 @@ namespace InsectCatalog.Migrations
 
             Person person = new Person
             {
-                PersonId = "0a",
                 FirstName = "Ryan",
                 MiddleName = "J.",
                 LastName = "Tanay",
@@ -43,7 +41,6 @@ namespace InsectCatalog.Migrations
 
             Person collector = new Person
             {
-                PersonId = "0b",
                 FirstName = "Joseph",
                 MiddleName = "C.",
                 LastName = "Lampley"
@@ -51,7 +48,6 @@ namespace InsectCatalog.Migrations
 
             Person identifier = new Person
             {
-                PersonId = "0c",
                 FirstName = "Nadeer",
                 MiddleName = "N.",
                 LastName = "Youssef"
@@ -59,7 +55,6 @@ namespace InsectCatalog.Migrations
 
             Image image = new Image
             {
-                ImageId = "0a",
                 S3Id = "somegianthashwillgohere",
                 Caption = "This is text that describes the image",
                 Display = true,
@@ -70,7 +65,6 @@ namespace InsectCatalog.Migrations
 
             Location location = new Location
             {
-                LocationId = "0a",
                 Name = "NRC, McMinnville",
                 Latitude = 35.708118,
                 Longitude = -85.744488
@@ -78,7 +72,6 @@ namespace InsectCatalog.Migrations
 
             Method method = new Method
             {
-                MethodId = "0a",
                 Name = "hand"
             };
 
@@ -86,7 +79,6 @@ namespace InsectCatalog.Migrations
 
             Insect insect = new Insect
             {
-                InsectId = "0a",
                 Family = "Cerambycidae",
                 Tribe = "Lamiinae",
                 Genus = "Ecyrus",

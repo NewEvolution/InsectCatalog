@@ -9,7 +9,7 @@ namespace InsectCatalog.Models
     public class Person : IComparable
     {
         [Key]
-        public string PersonId { get; set; }
+        public int PersonId { get; set; }
         [EmailAddress]
         public string Email { get; set; }
         [Required]

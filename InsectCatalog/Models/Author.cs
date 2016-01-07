@@ -10,7 +10,7 @@ namespace InsectCatalog.Models
     public class Author : IComparable
     {
         [Key]
-        public string AuthorId { get; set; }
+        public int AuthorId { get; set; }
         [Required]
         public string Name { get; set; }
         [Url]

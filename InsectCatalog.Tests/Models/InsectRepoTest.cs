@@ -229,7 +229,6 @@ namespace InsectCatalog.Tests.Models
             DateTime today = DateTime.Now;
             Insect insect1 = new Insect
             {
-                InsectId = "sd8rk",
                 Family = "Cerambycidae",
                 Tribe = "Aseminae",
                 Genus = "Atimia",
@@ -242,7 +241,6 @@ namespace InsectCatalog.Tests.Models
             };
             Insect insect2 = new Insect
             {
-                InsectId = "8xcg",
                 Family = "Cerambycidae",
                 Tribe = "Aseminae",
                 Genus = "Atimia",
@@ -255,7 +253,6 @@ namespace InsectCatalog.Tests.Models
             };
             Insect insect3 = new Insect
             {
-                InsectId = "w8asd",
                 Family = "Cerambycidae",
                 Tribe = "Aseminae",
                 Genus = "Atimia",

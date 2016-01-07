@@ -19,14 +19,12 @@ namespace InsectCatalog.Tests.Models
         {
             Person person = new Person
             {
-                PersonId = "0a234",
                 FirstName = "Ryan",
                 MiddleName = "J.",
                 LastName = "Tanay",
                 URL = "http://portfolio.ryantanay.com",
                 Email = "rtanay@gmail.com"
             };
-            Assert.AreEqual("0a234", person.PersonId);
             Assert.AreEqual("Ryan", person.FirstName);
             Assert.AreEqual("J.", person.MiddleName);
             Assert.AreEqual("Tanay", person.LastName);

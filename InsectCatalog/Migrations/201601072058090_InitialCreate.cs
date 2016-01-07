@@ -11,7 +11,7 @@ namespace InsectCatalog.Migrations
                 "dbo.Authors",
                 c => new
                     {
-                        AuthorId = c.String(nullable: false, maxLength: 128),
+                        AuthorId = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
                         URL = c.String(),
                     })
@@ -21,7 +21,7 @@ namespace InsectCatalog.Migrations
                 "dbo.Hosts",
                 c => new
                     {
-                        HostId = c.String(nullable: false, maxLength: 128),
+                        HostId = c.Int(nullable: false, identity: true),
                         CommonName = c.String(nullable: false),
                         Name = c.String(nullable: false),
                         URL = c.String(),
@@ -32,12 +32,12 @@ namespace InsectCatalog.Migrations
                 "dbo.Images",
                 c => new
                     {
-                        ImageId = c.String(nullable: false, maxLength: 128),
+                        ImageId = c.Int(nullable: false, identity: true),
                         S3Id = c.String(nullable: false),
                         Caption = c.String(nullable: false),
                         Display = c.Boolean(nullable: false),
-                        Photographer_PersonId = c.String(nullable: false, maxLength: 128),
-                        Insect_InsectId = c.String(maxLength: 128),
+                        Photographer_PersonId = c.Int(nullable: false),
+                        Insect_InsectId = c.Int(),
                     })
                 .PrimaryKey(t => t.ImageId)
                 .ForeignKey("dbo.People", t => t.Photographer_PersonId, cascadeDelete: true)
@@ -49,7 +49,7 @@ namespace InsectCatalog.Migrations
                 "dbo.People",
                 c => new
                     {
-                        PersonId = c.String(nullable: false, maxLength: 128),
+                        PersonId = c.Int(nullable: false, identity: true),
                         Email = c.String(),
                         FirstName = c.String(nullable: false),
                         MiddleName = c.String(),
@@ -62,7 +62,7 @@ namespace InsectCatalog.Migrations
                 "dbo.Insects",
                 c => new
                     {
-                        InsectId = c.String(nullable: false, maxLength: 128),
+                        InsectId = c.Int(nullable: false, identity: true),
                         Family = c.String(nullable: false),
                         Tribe = c.String(nullable: false),
                         Genus = c.String(nullable: false),
@@ -72,12 +72,12 @@ namespace InsectCatalog.Migrations
                         County = c.String(nullable: false),
                         CollectionDate = c.DateTime(nullable: false),
                         Description = c.String(nullable: false),
-                        Author_AuthorId = c.String(nullable: false, maxLength: 128),
-                        Collector_PersonId = c.String(nullable: false, maxLength: 128),
-                        Host_HostId = c.String(nullable: false, maxLength: 128),
-                        Identifier_PersonId = c.String(maxLength: 128),
-                        Location_LocationId = c.String(nullable: false, maxLength: 128),
-                        Method_MethodId = c.String(nullable: false, maxLength: 128),
+                        Author_AuthorId = c.Int(nullable: false),
+                        Collector_PersonId = c.Int(nullable: false),
+                        Host_HostId = c.Int(nullable: false),
+                        Identifier_PersonId = c.Int(),
+                        Location_LocationId = c.Int(nullable: false),
+                        Method_MethodId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.InsectId)
                 .ForeignKey("dbo.Authors", t => t.Author_AuthorId, cascadeDelete: true)
@@ -97,7 +97,7 @@ namespace InsectCatalog.Migrations
                 "dbo.Locations",
                 c => new
                     {
-                        LocationId = c.String(nullable: false, maxLength: 128),
+                        LocationId = c.Int(nullable: false, identity: true),
                         Latitude = c.Double(nullable: false),
                         Longitude = c.Double(nullable: false),
                         Name = c.String(nullable: false),
@@ -108,7 +108,7 @@ namespace InsectCatalog.Migrations
                 "dbo.Methods",
                 c => new
                     {
-                        MethodId = c.String(nullable: false, maxLength: 128),
+                        MethodId = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
                         URL = c.String(),
                     })

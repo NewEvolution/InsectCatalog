@@ -9,7 +9,7 @@ namespace InsectCatalog.Models
     public class Image : IComparable
     {
         [Key]
-        public string ImageId { get; set; }
+        public int ImageId { get; set; }
         [Required]
         public string S3Id { get; set; }
         [DefaultValue ("")]

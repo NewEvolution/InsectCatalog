@@ -19,11 +19,9 @@ namespace InsectCatalog.Tests.Models
         {
             Author author = new Author
             {
-                AuthorId = "auc78",
                 Name = "Linnaeus",
                 URL = "http://en.wikipedia.org/wiki/Linnaeus"
             };
-            Assert.AreEqual("auc78", author.AuthorId);
             Assert.AreEqual("Linnaeus", author.Name);
             Assert.AreEqual("http://en.wikipedia.org/wiki/Linnaeus", author.URL);
         }

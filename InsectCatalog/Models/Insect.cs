@@ -10,7 +10,7 @@ namespace InsectCatalog.Models
     public class Insect : IComparable
     {
         [Key]
-        public string InsectId { get; set; }
+        public int InsectId { get; set; }
         [Required]
         [RegularExpression(@"^[A-Z]+[a-z]+")]
         public string Family { get; set; }

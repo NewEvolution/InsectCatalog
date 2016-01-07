@@ -19,11 +19,9 @@ namespace InsectCatalog.Tests.Models
         {
             Method method = new Method
             {
-                MethodId = "4hej",
                 Name = "Malaise Trap",
                 URL = "http://en.wikipedia.org/wiki/Malaise_Trap"
             };
-            Assert.AreEqual("4hej", method.MethodId);
             Assert.AreEqual("Malaise Trap", method.Name);
             Assert.AreEqual("http://en.wikipedia.org/wiki/Malaise_Trap", method.URL);
         }

@@ -9,7 +9,7 @@ namespace InsectCatalog.Models
     public class Method : IComparable
     {
         [Key]
-        public string MethodId { get; set; }
+        public int MethodId { get; set; }
         [Required]
         public string Name { get; set; }
         [Url]

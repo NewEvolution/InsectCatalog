@@ -10,7 +10,7 @@ namespace InsectCatalog.Models
     public class Host : IComparable
     {
         [Key]
-        public string HostId { get; set; }
+        public int HostId { get; set; }
         [DefaultValue("")]
         [Required(AllowEmptyStrings = true)]
         public string CommonName { get; set; }

@@ -9,7 +9,7 @@ namespace InsectCatalog.Models
     public class Location : IComparable
     {
         [Key]
-        public string LocationId { get; set; }
+        public int LocationId { get; set; }
         [Required]
         public double Latitude { get; set; }
         [Required]
