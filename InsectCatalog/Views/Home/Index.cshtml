@@ -1,18 +1,15 @@
-﻿@model IEnumerable<InsectCatalog.Models.Insect>
+﻿@model InsectCatalog.Models.Insect
 @{
     ViewBag.Title = "Home";
 }
 <div class="row">
     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
-        <img src="http://lorempixel.com/1024/768" />
+        <img src="@ViewBag.Image" />
     </div>
     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-        @foreach (var insect in Model)
-        {
-            <h3><em>@insect.Genus @insect.Species</em></h3>
-            <span class="attribution">Photo by <em>@insect.Images.First().Photographer.FirstName @insect.Images.First().Photographer.LastName</em></span>
-            <p class="caption">@insect.Images.First().Caption</p>
-        }
+        <h3><em>@Model.Genus @Model.Species</em></h3>
+        <span class="attribution">Photo by <em>@Model.Images.First().Photographer.FirstName @Model.Images.First().Photographer.LastName</em></span>
+        <p class="caption">@Model.Images.First().Caption</p>
         <div class="main-nav">
             <h4>Browse By</h4>
             <ul>
